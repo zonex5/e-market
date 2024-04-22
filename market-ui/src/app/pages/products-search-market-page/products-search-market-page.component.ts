@@ -12,6 +12,8 @@ import {FormsModule} from "@angular/forms";
 import {PaginatorModule} from "primeng/paginator";
 import {TSortingConfig} from "../../types/TSortingConfig";
 import {ResultPage} from "../ResultPage";
+import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
+import {MessagesModule} from "primeng/messages";
 
 @Component({
   selector: 'app-products-search-market-page',
@@ -25,16 +27,18 @@ import {ResultPage} from "../ResultPage";
     ProductCardComponent,
     FormsModule,
     NgIf,
-    PaginatorModule
+    PaginatorModule,
+    ProductsSkeletonComponent,
+    MessagesModule
   ],
   styleUrls: ['./products-search-market-page.component.css']
 })
 export class ProductsSearchMarketPageComponent extends ResultPage implements OnInit {
 
-  randomProducts: TProductData[] = []
-
   searchText: string = ''
   searchValue: string = ''
+
+  randomProducts: TProductData[] = []
 
   private productsQuery: QueryRef<unknown, { text: string; sort: TSortingConfig; }>
 
@@ -52,12 +56,19 @@ export class ProductsSearchMarketPageComponent extends ResultPage implements OnI
     this.apollo.watchQuery({
       query: this.qs.queryProductsRandom,
       fetchPolicy: "network-only"
-    }).valueChanges.subscribe(this.productsSubscriptionHandlers)
+    }).valueChanges.subscribe({
+      next: (result: any) => {
+        this.randomProducts = result?.data?.products;
+      },
+      error: this.onError
+    })
   }
 
   loadProductsByText(text: string) {
     this.searchText = text
     this.searchValue = text
+
+    this.loadingData = true
 
     //load total products count
     this.apollo.watchQuery({

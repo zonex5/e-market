@@ -1,5 +1,6 @@
 <div class="flex pt-6">
   <div class="flex flex-column w-full">
+    <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
 
     <!--Search panel-->
     <div class="flex w-full justify-content-center align-items-center">
@@ -8,6 +9,8 @@
         <input type="text" pInputText placeholder="What are you looking for?" [(ngModel)]="searchText" (keydown)="onKeyDown($event)" class="w-full"/>
       </p-iconField>
     </div>
+
+    <app-products-skeleton *ngIf="loading" class="mt-4"/>
 
     <!--Search results-->
     <div *ngIf="hasResults" class="mt-4">

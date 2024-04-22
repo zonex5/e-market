@@ -6,6 +6,8 @@ import {DropdownModule} from "primeng/dropdown";
 import {NgForOf, NgIf} from "@angular/common";
 import {PaginatorModule} from "primeng/paginator";
 import {ProductCardComponent} from "../../components/product-card/product-card.component";
+import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
+import {MessagesModule} from "primeng/messages";
 
 @Component({
   selector: 'app-main-market-page',
@@ -18,7 +20,9 @@ import {ProductCardComponent} from "../../components/product-card/product-card.c
     NgForOf,
     NgIf,
     PaginatorModule,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductsSkeletonComponent,
+    MessagesModule
   ],
   styleUrls: ['./main-market-page.component.css']
 })
@@ -32,6 +36,8 @@ export class MainMarketPageComponent extends ResultPage implements OnInit {
   }
 
   loadCategoryProducts(): void {
+    this.loadingData = true
+
     this.apollo.watchQuery({
       query: this.qs.queryProductsMainPage,
       variables: {

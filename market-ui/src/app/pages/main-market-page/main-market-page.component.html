@@ -1,11 +1,18 @@
 <div class="pt-3">
-  <p class="text-base md:text-xl font-semibold">Our top picks just for you</p>
+  <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
+
+  <app-products-skeleton *ngIf="loading"/>
+
   <div *ngIf="hasResults">
+    <p class="text-base md:text-xl font-semibold">Our top picks just for you</p>
     <div class="flex flex-row flex-wrap gap-5">
       <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
     </div>
   </div>
-  <div *ngIf="!hasResults" class="flex flex-row justify-content-center align-items-center mt-2 md:mt-6">
-    <p class="text-color-secondary text-base md:text-xl">Sorry, something went wrong. Please try later.</p>
+
+  <!--No results-->
+  <div *ngIf="!hasResults && !loading" class="flex flex-column justify-content-center align-items-center mt-8">
+    <img src="/assets/images/empty-cart.png" alt="empty-cart-img" width="283"/>
+    <h4>Sorry, something went wrong. Please try later.</h4>
   </div>
 </div>
