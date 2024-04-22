@@ -1,0 +1,89 @@
+<div *ngIf="!!product" class="grid pt-4">
+
+  <!--Galleria-->
+  <div class="col-12 md:col-5 bg-bluegray-50">
+    <p-galleria [value]="imageUrls"
+                [showItemNavigatorsOnHover]="!smallScreen"
+                [showItemNavigators]="true"
+                [showThumbnails]="false"
+                [showIndicators]="true"
+                [showIndicatorsOnItem]="true"
+                [circular]="true"
+    >
+      <ng-template pTemplate="item" let-item>
+        <div class="flex justify-content-center align-items-center img-container">
+          <img [src]="item" style="width: 100%; height: 100%"/>
+        </div>
+      </ng-template>
+    </p-galleria>
+  </div>
+
+  <!--Product data-->
+  <div class="col-12 md:col-7 pl-5">
+    <div class="flex justify-content-between">
+      <p class="text-sm text-800">{{ product.category?.title }}</p>
+      <!--todo  <p *ngIf="variantSelected" class="text-sm text-color-secondary font-semibold">SKU {{ selectedVariant.sku }}</p>-->
+    </div>
+    <div class="flex justify-content-between align-items-center m-0">
+      <flex>
+        <p class="text-2xl md:text-4xl font-medium mr-4" [ngStyle]="{'margin-block-start': '0', 'margin-block-end': '0'}">{{ product.title }}</p>
+        <app-wish-list-button [checked]="product.inWishList || false" (onClick)="onWishListButtonClick($event)"></app-wish-list-button>
+      </flex>
+      <div class="flex justify-content-end">
+        <app-product-price *ngIf="variantSelected" [price]="selectedVariant.price" [inStock]="inStock"></app-product-price>
+        <p-tag *ngIf="!variantSelected" severity="warning" value="Please select all options"></p-tag>
+      </div>
+    </div>
+    <p class="text-base text-800">{{ product.annotation }}</p>
+
+    <!--Attribute selection-->
+    <div *ngFor="let item of product.attributes" class="flex flex-column mt-4">
+      <span class="text-base mb-2">{{ item.name }}:</span>
+      <p-dropdown [options]="item.values"
+                  [style]="{width: '50%'}"
+                  placeholder="Select a value"
+                  [(ngModel)]="userSelection[item.name]"
+                  (ngModelChange)="onAttributeChange()">
+      </p-dropdown>
+    </div>
+
+    <!--Product count-->
+    <div class="flex flex-column mt-4">
+      <span class="text-base mb-2">Count:</span>
+      <p-inputNumber [(ngModel)]="productCount"
+                     [showButtons]="true"
+                     buttonLayout="horizontal"
+                     inputId="horizontal"
+                     decrementButtonClass="p-button-secondary"
+                     incrementButtonClass="p-button-secondary"
+                     incrementButtonIcon="pi pi-plus"
+                     decrementButtonIcon="pi pi-minus"
+                     [disabled]="inCart"
+                     [step]="1" [min]="1" [max]="99" [size]="1" [allowEmpty]="false"
+      >
+      </p-inputNumber>
+    </div>
+
+    <!--Size help message-->
+    <flex class="text-400 mt-4">
+      <span class="pi pi-question-circle mr-2"></span>
+      <span>Need help about size? Size Guide </span>
+    </flex>
+
+    <!--Put to cart button-->
+    <div class="mt-5">
+      <p-button *ngIf="!inCart" [disabled]="disabledButton" label="Add to Cart" icon="pi pi-check" (click)="onBtnAddClick()"></p-button>
+      <p-chip *ngIf="inCart" label="In cart" icon="pi pi-shopping-cart"></p-chip>
+    </div>
+
+  </div>
+</div>
+
+<!--Product detailed description-->
+<div *ngIf="!!product?.description" class="flex flex-column mt-4">
+  <p class="text-3xl">Product description</p>
+  <p class="text-base">{{ product.description }}</p>
+</div>
+
+
+<div *ngIf="!product">Loading...</div>

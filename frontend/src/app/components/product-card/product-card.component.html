@@ -1,0 +1,20 @@
+<div class="card flex justify-content-center relative">
+  <p-confirmPopup></p-confirmPopup>
+  <p-button *ngIf="showRemoveButton" class="absolute bottom-0 right-0 mr-1 mb-1" icon="pi pi-trash" [rounded]="true" [text]="true" severity="danger" (click)="remove($event)" ></p-button>
+  <p-card class="lg:w-20rem md:w-20rem sm:w-fit" [routerLink]="['/product', data.id]">
+    <ng-template pTemplate="title">
+      <p class="text-lg text-800">{{ data.title }}</p>
+    </ng-template>
+    <ng-template pTemplate="subtitle">
+      <p class="text-base text-500">{{ data.annotation }}</p>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-center">
+        <p-image [src]="imageUrl" [alt]="data.title" height="200" class="mt-2"></p-image>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <app-product-price [price]="data.price" [inStock]="data.available"></app-product-price>
+    </ng-template>
+  </p-card>
+</div>

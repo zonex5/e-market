@@ -1,0 +1,4 @@
+<div class="cursor-pointer w-2rem" [pTooltip]="checked ? 'Remove from wish list' : 'Add to wish list'" tooltipPosition="bottom" (click)="click()">
+  <p *ngIf="!checked" class="pi pi-heart text-color-secondary text-2xl icon"></p>
+  <p *ngIf="checked" class="pi pi-heart-fill text-red-400 text-2xl icon"></p>
+</div>

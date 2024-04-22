@@ -1,0 +1,5 @@
+<p-menu #menu [model]="menuItems" [popup]="true"></p-menu>
+<div (click)="menu.toggle($event)">
+  <span [class]="'mr-1 fi fi-' + selectedLanguage?.code"></span>
+  <span class="uppercase text-sm">{{ selectedLanguage?.code }}</span>
+</div>

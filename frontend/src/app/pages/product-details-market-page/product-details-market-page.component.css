@@ -1,0 +1,21 @@
+@media screen and (min-width: 360px) {
+  .img-container {
+    min-height: 300px !important;
+    max-height: 300px !important;
+    height: 300px !important;
+    margin-top: 1rem !important;
+  }
+}
+
+@media screen and (min-width: 840px) {
+  .img-container {
+    min-height: 800px !important;
+    max-height: 800px !important;
+    /*margin-top: 0 !important;
+    min-width: 640px;*/
+  }
+}
+
+p-button button {
+  width: 100% !important;
+}

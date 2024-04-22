@@ -1,0 +1,5 @@
+<div class="flex align-items-center gap-2">
+  <p-button icon="pi pi-minus" size="small" [style]="btnStyle" [disabled]="btnMinDisabled" (click)="dec()"></p-button>
+  <span class="text-lg text-color-secondary select-none">{{ value | toString }}</span>
+  <p-button icon="pi pi-plus" size="small" [style]="btnStyle" [disabled]="btnMaxDisabled" (click)="inc()"></p-button>
+</div>

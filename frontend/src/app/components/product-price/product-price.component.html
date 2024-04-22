@@ -1,0 +1,15 @@
+<div class="flex justify-content-between">
+  <div *ngIf="available" class="flex">
+    <div class="flex align-items-center">
+      <p-tag *ngIf="hasDiscount" severity="warning" class="mr-3" [value]="-discount + '%'"></p-tag>
+      <p-tag *ngIf="hasSale" severity="danger" [rounded]="true" class="ml-2 mr-3" value="Sale"></p-tag>
+    </div>
+    <div class="flex align-items-center">
+      <span *ngIf="hasDiscount" class="text-bluegray-300 mr-3 line-through text-sm">{{ price?.oldPrice ?? 0 | currency }}</span>
+      <span class="font-bold text-xl">{{ price?.currentPrice ?? 0 | currency }}</span>
+    </div>
+  </div>
+  <div *ngIf="!available" class="flex align-items-center">
+    <p-tag [style]="{ 'background': '#9ca3af'}" value="Out of Stock"></p-tag>
+  </div>
+</div>

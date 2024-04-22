@@ -1,0 +1,10 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+@import "flag-icons/css/flag-icons.css";
+
+body {
+  font-family: '-apple-system', BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, 'sans-serif' !important;
+  -webkit-font-smoothing: antialiased !important;
+}

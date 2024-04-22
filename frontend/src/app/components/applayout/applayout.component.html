@@ -1,0 +1,46 @@
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="">
+    <img src="assets/images/logo-dark.svg" alt="logo">
+    <span>SAKAI</span>
+  </a>
+
+  <div class="flex justify-content-start flex-wrap align-items-center pt-5 ml-5 h-full">
+    <a class="category-item "
+       *ngFor="let item of menuData"
+       routerLinkActive="category-item-active"
+       [routerLink]="['category', item.id]"
+    >{{ item.title }}</a>
+  </div>
+
+  <div class="flex align-items-center layout-topbar-menu ">
+    <!--Top bar buttons-->
+    <div class="flex gap-4 align-items-center justify-content-end">
+      <i class="pi pi-search text-color-secondary button-icon" [routerLink]="['search']" pTooltip="Search products" tooltipPosition="bottom"></i>
+      <div *ngIf="!authService.authenticated" class="flex justify-content-between align-items-center gap-3">
+        <app-language class="button-icon"/>
+        <i class="pi pi-sign-in text-color-secondary button-icon" pTooltip="Sign in" tooltipPosition="bottom" (click)="login()"></i>
+      </div>
+
+      <div *ngIf="authService.authenticated" class="flex gap-3 align-items-center justify-content-end">
+        <div [routerLink]="['cart']">
+          <i *ngIf="(this.cartService.hasItems)" class="pi pi-shopping-cart text-color-secondary button-icon" pBadge severity="danger"
+             pTooltip="My shopping cart" tooltipPosition="bottom"></i>
+          <i *ngIf="!(this.cartService.hasItems)" class="pi pi-shopping-cart button-icon" pTooltip="My shopping cart"
+             tooltipPosition="bottom"></i>
+        </div>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <app-language class="button-icon" pTooltip="Change language" tooltipPosition="bottom"/>
+        <p-avatar [label]="initials" class="button-icon" [style]="{'background-color': '#9c27b0', color: '#ffffff'}" shape="circle"
+                  (click)="menu.toggle($event)" pTooltip="My profile" tooltipPosition="bottom"></p-avatar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-login-dialog></app-login-dialog>
+
+<div class="pr-4 pl-4 pt-2 min-height-small sm:min-height-big">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer/>

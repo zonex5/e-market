@@ -1,0 +1,10 @@
+<div class="pt-2">
+  <div *ngIf="hasResults">
+    <div class="flex flex-row flex-wrap gap-3">
+      <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
+    </div>
+  </div>
+  <div *ngIf="!hasResults" class="flex flex-row justify-content-center align-items-center mt-2 md:mt-6">
+    <p class="text-color-secondary text-base md:text-xl">Sorry, something went wrong. Please try later.</p>
+  </div>
+</div>
