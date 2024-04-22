@@ -11,24 +11,24 @@ import {PaginatorModule} from "primeng/paginator";
 import {ResultPage} from "../ResultPage";
 import {MessagesModule} from "primeng/messages";
 import {ProgressBarModule} from "primeng/progressbar";
-import {SkeletonDataComponent} from "../../components/skeleton-data/skeleton-data.component";
+import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
 import {Message} from "primeng/api";
 
 @Component({
   selector: 'app-products-market-page',
   templateUrl: './products-market-page.component.html',
   standalone: true,
-    imports: [
-        ProductCardComponent,
-        NgForOf,
-        DropdownModule,
-        FormsModule,
-        PaginatorModule,
-        NgIf,
-        MessagesModule,
-        ProgressBarModule,
-        SkeletonDataComponent
-    ],
+  imports: [
+    ProductCardComponent,
+    NgForOf,
+    DropdownModule,
+    FormsModule,
+    PaginatorModule,
+    NgIf,
+    MessagesModule,
+    ProgressBarModule,
+    ProductsSkeletonComponent
+  ],
   styleUrls: ['./products-market-page.component.css']
 })
 export class ProductsMarketPageComponent extends ResultPage implements OnInit, OnDestroy {
@@ -37,20 +37,15 @@ export class ProductsMarketPageComponent extends ResultPage implements OnInit, O
 
   private productsQuery: QueryRef<unknown, { id: number; sort: TSortingConfig; }>
 
-  messages: Message[] = []
-
   loadCategoryProducts(id: number): void {
     this.categoryId = id
+    this.loadingData = true
 
     //load total products count
     this.apollo.watchQuery({
       query: this.qs.totalProductsCategory,
       variables: {id: id,}
-    }).valueChanges.subscribe(({data, loading, error}) => {
-      this.totalProducts = (data as any).totalProducts
-      this.loading ||= loading //todo
-      this.error ||= !!error
-    })
+    }).valueChanges.subscribe(this.totalProductsSubscriptionHandlers)
 
     // load products
     this.productsQuery = this.apollo.watchQuery({
@@ -60,11 +55,7 @@ export class ProductsMarketPageComponent extends ResultPage implements OnInit, O
         sort: this.currentSort
       }
     })
-    this.productsQuery.valueChanges.subscribe(({data, loading, error}) => {
-      this.products = (data as any).products
-      this.loading ||= loading //todo
-      this.error ||= !!error
-    })
+    this.productsQuery.valueChanges.subscribe(this.productsSubscriptionHandlers)
   }
 
   ngOnInit(): void {

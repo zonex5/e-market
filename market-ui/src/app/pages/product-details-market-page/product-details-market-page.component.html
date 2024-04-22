@@ -30,7 +30,7 @@
         <app-wish-list-button [checked]="product.inWishList || false" (onClick)="onWishListButtonClick($event)"></app-wish-list-button>
       </flex>
       <div class="flex justify-content-end">
-        <app-product-price *ngIf="variantSelected" [price]="selectedVariant.price" [inStock]="inStock"></app-product-price>
+        <app-product-price *ngIf="variantSelected" [price]="selectedVariantPrice" [inStock]="inStock"></app-product-price>
         <p-tag *ngIf="!variantSelected" severity="warning" value="Please select all options"></p-tag>
       </div>
     </div>

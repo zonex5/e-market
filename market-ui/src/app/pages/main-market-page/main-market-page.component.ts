@@ -37,11 +37,7 @@ export class MainMarketPageComponent extends ResultPage implements OnInit {
       variables: {
         sort: {...this.currentSort, size: 50}
       }
-    }).valueChanges.subscribe(({data, loading, error}) => {
-      this.products = (data as any).products
-      this.loading ||= loading
-      this.error ||= !!error
-    })
+    }).valueChanges.subscribe(this.productsSubscriptionHandlers)
   }
 
 }

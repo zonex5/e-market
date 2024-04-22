@@ -6,6 +6,7 @@ import {Component, OnDestroy} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {QueryService} from "../graphql/query.service";
 import {Apollo} from "apollo-angular";
+import {Message} from "primeng/api";
 
 @Component({template: ''})
 export abstract class ResultPage implements OnDestroy {
@@ -13,8 +14,10 @@ export abstract class ResultPage implements OnDestroy {
   constructor(public route: ActivatedRoute, public qs: QueryService, public apollo: Apollo) {
   }
 
-  private _loading: boolean = false  //todo правильно высчитывать
   private _error: boolean = false
+
+  loadingTotals: boolean = false
+  loadingData: boolean = false
 
   products: TProductData[] = []
   totalProducts: number = 0
@@ -22,6 +25,9 @@ export abstract class ResultPage implements OnDestroy {
   routeSubscription: Subscription | undefined
 
   protected firstRecords: number = 0
+
+  messages: Message[] = []
+  readonly errorMsg = {severity: 'error', detail: 'An error has occurred, please try again!'}
 
   sortModeList: TSortingMode[] = [
     {label: 'Price, low to high', value: 'cost', direction: 'ASC'},
@@ -40,12 +46,8 @@ export abstract class ResultPage implements OnDestroy {
 
   currentSort: TSortingConfig = {...this.initialSort}
 
-  set loading(value: boolean) {
-    this._loading = value;
-  }
-
   get loading(): boolean {
-    return this._loading;
+    return this.loadingTotals || this.loadingData;
   }
 
   set error(value: boolean) {
@@ -62,6 +64,33 @@ export abstract class ResultPage implements OnDestroy {
 
   get showPaginator(): boolean {
     return this.totalProducts > this.initialSort.size
+  }
+
+  setLoading(value: boolean) {
+    this.loadingTotals = value
+    this.loadingData = value
+  }
+
+  onError = () => {
+    //on error set loading to 'false' for all events
+    this.setLoading(false)
+    this.messages = [this.errorMsg]
+  }
+
+  productsSubscriptionHandlers = {
+    next: (result: any) => {
+      this.products = result?.data?.products;
+      this.loadingData = false;
+    },
+    error: this.onError
+  }
+
+  totalProductsSubscriptionHandlers = {
+    next: (result: any) => {
+      this.totalProducts = result?.data?.totalProducts
+      this.loadingData = false;
+    },
+    error: this.onError
   }
 
   ngOnDestroy(): void {

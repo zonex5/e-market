@@ -6,7 +6,7 @@ import {ProductCardComponent} from "../../components/product-card/product-card.c
 import {ResultPage} from "../ResultPage";
 import {MessagesModule} from "primeng/messages";
 import {ProgressBarModule} from "primeng/progressbar";
-import {SkeletonDataComponent} from "../../components/skeleton-data/skeleton-data.component";
+import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
 import {Message} from "primeng/api";
 import {MutationProductToWishList} from "../../graphql/mutation.service";
 import {QueryRef} from "apollo-angular";
@@ -22,7 +22,7 @@ import {QueryRef} from "apollo-angular";
     ProductCardComponent,
     MessagesModule,
     ProgressBarModule,
-    SkeletonDataComponent
+    ProductsSkeletonComponent
   ],
   templateUrl: './favourite-products.component.html',
   styleUrl: './favourite-products.component.css'
@@ -32,18 +32,12 @@ export class FavouriteProductsComponent extends ResultPage implements OnInit, On
   private readonly addProductToWishList = inject(MutationProductToWishList)
   private queryFavourites: QueryRef<any>
 
-  messages: Message[] = []
-
   ngOnInit(): void {
-    this.loading = true
+    this.setLoading(true)
     this.queryFavourites = this.apollo.watchQuery({
       query: this.qs.queryFavouritesProducts
     })
-    this.queryFavourites.valueChanges.subscribe(({data, loading, error}) => {
-      this.products = (data as any).products
-      this.loading = loading
-      this.error = !!error
-    })
+    this.queryFavourites.valueChanges.subscribe(this.productsSubscriptionHandlers)
   }
 
   refetch(): void {
@@ -62,5 +56,4 @@ export class FavouriteProductsComponent extends ResultPage implements OnInit, On
         }
       })
   }
-
 }

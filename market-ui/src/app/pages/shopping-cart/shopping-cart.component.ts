@@ -18,7 +18,7 @@ import {TooltipModule} from "primeng/tooltip";
 import {MessagesModule} from "primeng/messages";
 import {ConfirmationService, Message} from "primeng/api";
 import {BlockUIModule} from "primeng/blockui";
-import {SkeletonDataComponent} from "../../components/skeleton-data/skeleton-data.component";
+import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
 import {ProgressSpinnerModule} from "primeng/progressspinner";
 import {ProgressBarModule} from "primeng/progressbar";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
@@ -42,7 +42,7 @@ import {PaymentLogoComponent} from "../../components/payment-logo/payment-logo.c
     TooltipModule,
     MessagesModule,
     BlockUIModule,
-    SkeletonDataComponent,
+    ProductsSkeletonComponent,
     ProgressSpinnerModule,
     ProgressBarModule,
     ConfirmPopupModule,

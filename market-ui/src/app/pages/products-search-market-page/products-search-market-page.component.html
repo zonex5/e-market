@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row flex-wrap gap-4 w-full mt-4 justify-content-between">
+      <div class="flex flex-row flex-wrap gap-5 w-full mt-4 justify-content-between">
         <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
       </div>
       <p-paginator *ngIf="showPaginator" (onPageChange)="onPageChange($event)" [first]="firstRecords" [rows]="currentSort.size"
@@ -36,7 +36,7 @@
     <!--Recommendations-->
     <div class="mt-5">
       <p class="text-base md:text-xl font-semibold">More to love</p>
-      <div class="flex flex-row flex-wrap gap-4 w-full mt-4">
+      <div class="flex flex-row flex-wrap gap-5 w-full mt-4">
         <app-product-card *ngFor="let product of randomProducts" [data]=product></app-product-card>
       </div>
     </div>

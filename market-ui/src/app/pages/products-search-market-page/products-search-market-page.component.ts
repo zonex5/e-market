@@ -52,11 +52,7 @@ export class ProductsSearchMarketPageComponent extends ResultPage implements OnI
     this.apollo.watchQuery({
       query: this.qs.queryProductsRandom,
       fetchPolicy: "network-only"
-    }).valueChanges.subscribe(({data, loading, error}) => {
-      this.randomProducts = (data as any).products
-      this.loading ||= loading
-      this.error ||= !!error
-    })
+    }).valueChanges.subscribe(this.productsSubscriptionHandlers)
   }
 
   loadProductsByText(text: string) {
@@ -67,22 +63,14 @@ export class ProductsSearchMarketPageComponent extends ResultPage implements OnI
     this.apollo.watchQuery({
       query: this.qs.totalProductsText,
       variables: {text}
-    }).valueChanges.subscribe(({data, loading, error}) => {
-      this.totalProducts = (data as any).totalProducts
-      this.loading ||= loading
-      this.error ||= !!error
-    })
+    }).valueChanges.subscribe(this.totalProductsSubscriptionHandlers)
 
+    //load products
     this.productsQuery = this.apollo.watchQuery({
       query: this.qs.queryProductsByText,
       variables: {text, sort: this.currentSort}
     })
-
-    this.productsQuery.valueChanges.subscribe(({data, loading, error}) => {
-      this.products = (data as any).products
-      this.loading ||= loading
-      this.error ||= !!error
-    })
+    this.productsQuery.valueChanges.subscribe(this.productsSubscriptionHandlers)
   }
 
   onSearchButtonClick() {

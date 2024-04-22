@@ -1,7 +1,7 @@
 <div class="select-none">
   <p-progressBar *ngIf="fetching || loading" mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
   <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
-  <app-skeleton-data *ngIf="loading"/>
+  <app-products-skeleton *ngIf="loading"/>
 
   <div *ngIf="!loading" class="flex flex-row gap-4">
 

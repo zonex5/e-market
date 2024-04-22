@@ -1,22 +1,21 @@
 <div class="pt-2">
-
-  <p-progressBar *ngIf="loading" mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
   <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
-  <app-skeleton-data *ngIf="loading"/>
+  <app-products-skeleton *ngIf="loading"/>
 
   <div *ngIf="hasResults">
     <div class="flex h-4rem justify-content-end align-items-center">
       <p class="mr-2">Sort by:</p>
       <p-dropdown [options]="sortModeList" optionLabel="label" [(ngModel)]="sortMode" (onChange)="onSortChange()"></p-dropdown>
     </div>
-    <div class="flex flex-row flex-wrap gap-3">
+    <div class="flex flex-row flex-wrap gap-5">
       <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
     </div>
     <p-paginator *ngIf="showPaginator" (onPageChange)="onPageChange($event)" [first]="firstRecords" [rows]="currentSort.size"
                  [totalRecords]="totalProducts"></p-paginator>
   </div>
 
-  <div *ngIf="!hasResults" class="flex flex-column justify-content-center align-items-center mt-8">
+  <!--No results-->
+  <div *ngIf="!hasResults && !loading" class="flex flex-column justify-content-center align-items-center mt-8">
     <img src="/assets/images/empty-cart.png" alt="empty-cart-img" width="283"/>
     <h4>Sorry! Couldn't find any products in the selected category</h4>
   </div>

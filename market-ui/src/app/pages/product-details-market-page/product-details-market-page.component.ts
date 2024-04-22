@@ -91,6 +91,10 @@ export class ProductDetailsMarketPageComponent implements OnInit { //todo unsubs
     return Object.values(this.userSelection).every(value => value != null)
   }
 
+  get selectedVariantPrice() {
+    return this.selectedVariant?.price
+  }
+
   get imageUrls(): string[] {
     return this.product?.images?.map(id => environment.imgDownloadUrl + id)
   }

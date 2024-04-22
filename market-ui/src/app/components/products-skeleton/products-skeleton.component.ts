@@ -1,17 +1,18 @@
 import {Component} from '@angular/core';
 import {SkeletonModule} from "primeng/skeleton";
 import {CommonModule} from "@angular/common";
+import {ProgressBarModule} from "primeng/progressbar";
 
 @Component({
-  selector: 'app-skeleton-data',
+  selector: 'app-products-skeleton',
   standalone: true,
   imports: [
     SkeletonModule,
-    CommonModule
+    CommonModule,
+    ProgressBarModule
   ],
-  templateUrl: './skeleton-data.component.html',
-  styleUrl: './skeleton-data.component.css'
+  templateUrl: './products-skeleton.component.html'
 })
-export class SkeletonDataComponent {
+export class ProductsSkeletonComponent {
   counterArray = Array(10)
 }

@@ -1,6 +1,7 @@
-<div class="pt-2">
+<div class="pt-3">
+  <p class="text-base md:text-xl font-semibold">Our top picks just for you</p>
   <div *ngIf="hasResults">
-    <div class="flex flex-row flex-wrap gap-3">
+    <div class="flex flex-row flex-wrap gap-5">
       <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
     </div>
   </div>
