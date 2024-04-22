@@ -1,0 +1,239 @@
+type Language {
+    code: String!
+    name: String
+    isDefault: Boolean
+}
+
+type Country {
+    id: Int!,
+    name: String!,
+    code: String!,
+    phone: String!
+}
+
+type Category {
+    id: ID
+    title: String
+    annotation: String
+    active: Boolean
+    pictureId: Int  #id from Images table
+    products: [Product]
+}
+
+type Product {
+    id: ID
+    sku: String
+    title: String
+    annotation: String
+    description: String
+
+    thumbnail: Int  #id from Images table
+    images: [Int]   #ids from Images table
+    category: Category
+
+    available: Boolean #in stock
+    stock: Int  #todo extract to variants (one default variant)
+    price: Price
+    active: Boolean
+    inWishList: Boolean
+
+    variants: [ProductVariant]
+    attributes: [ProductGeneralAttribute]
+}
+
+type CartProduct {
+    id: ID
+    title: String
+    available: Boolean
+    active: Boolean
+    quantity: Int
+    oldPrice: Float
+    currentPrice: Float
+    sale: Boolean
+    thumbnail: Int
+    details: String
+    discount: Int
+}
+
+type CustomerCart {
+    products: [CartProduct]
+    totalAmount: Float
+    savedAmount: Float
+}
+
+type ProductGeneralAttribute {
+    id: Int
+    name: String
+    values: [String]
+}
+
+type ProductVariant {
+    productId: Int
+    attributes: [Attribute]
+    price: Price
+    inStock: Boolean
+    sku: String
+}
+
+type Attribute {
+    id: Int
+    name: String
+    value: String
+}
+
+type Price {
+    oldPrice: Float,
+    newPrice: Float,
+    currentPrice: Float,
+    discount: Int,
+    fromDate: String,
+    sale: Boolean
+}
+
+type Compilation {
+    id: ID,
+    title: String,
+    annotation: String,
+    active: Boolean,
+    background: String,
+    products: [Product]
+}
+
+type CustomerSavedData {
+    firstName: String,
+    lastName: String,
+    email: String,
+    phone: String,
+    countryId: Int
+    address: String,
+    zip: String,
+    city: String,
+    save: Boolean
+}
+
+type OrderAmountsData {
+    subtotal: Float,
+    shipping: Float,
+    total: Float
+}
+
+type ShippingMethodModel{
+    methodName: String
+    cost: Float
+}
+
+type NewOrderData {
+    customerData: CustomerSavedData,
+    amounts: OrderAmountsData,
+    shippingMethod: ShippingMethodModel
+}
+
+type OrderResult {
+    success: Boolean!,
+    unavailableProducts: [Int]
+}
+
+input OrderDataInput {
+    firstName: String,
+    lastName: String,
+    email: String,
+    phone: String,
+    country: Int
+    address: String,
+    zip: String,
+    city: String,
+    save: Boolean
+}
+
+input CategoryInput {
+    id: ID
+    title: String
+    annotation: String
+    active: Boolean
+}
+
+input ProductInput {
+    id: ID
+    title: String
+    annotation: String
+    description: String
+    active: Boolean
+    categoryId: Int
+}
+
+input PriceInput {
+    productId: Int,
+    originalPrice: Float,
+    discount: Int,
+    fromDate: String
+}
+
+input CompilationInput {
+    id: ID,
+    title: String,
+    annotation: String,
+    active: Boolean,
+    background: String,
+    products: [Int]
+}
+
+input SortInput {
+    field: String,
+    direction: String,
+    page: Int,
+    size: Int
+}
+
+type Query {
+    getAllCategories: [Category]
+    getActiveCategories: [Category]
+    getCategoryById(id: Int!) : Category
+
+    getAllProducts: [Product]
+    getActiveProducts: [Product]
+    getAllOrphansProducts: [Product]
+    getProductById(id: Int!): Product
+
+    getAllCompilations: [Compilation]
+    getActiveCompilations: [Compilation]
+    getCompilationById(id: Int!): Compilation
+
+    # getCustomerCartProducts: [CartProduct] todo remove?
+    getCustomerCart: CustomerCart
+
+    productsByCategory(id: Int!, sort: SortInput): [Product]
+    totalProductsByCategory(id: Int!): Int
+
+    productsByText(text: String!, sort: SortInput): [Product]
+    totalProductsByText(text: String!): Int
+
+    productsMainPage(sort: SortInput): [Product]
+    totalProductsMainPage: Int
+
+    productsRandom(sort: SortInput): [Product]
+    favourites: [Product]
+
+    languages: [Language]
+    countries: [Country]
+    newOrderData: NewOrderData
+}
+
+type Mutation {
+    addProduct(productInput: ProductInput): Product
+    updateProduct(productInput: ProductInput): Product
+    deleteProduct(productId: Int): Boolean
+
+    addCurrentPrice(priceInput: PriceInput): Price
+    deletePrice(priceId: Int): Boolean
+
+    addCompilation(compilationInput: CompilationInput): Compilation
+    updateCompilation(compilationInput: CompilationInput): Compilation
+    deleteCompilation(compilationId: Int): Boolean
+
+    addProductToCart(id: Int!, quantity: Int!): Boolean
+    deleteProductFromCart(id: Int!): Boolean
+    updateQuantityInCart(id: Int!, quantity: Int!) : Boolean
+
+    productToWishList(id: Int!, flag: Boolean!): Boolean  # flag=true for add, flag=false for remove
+    finishOrder(data: OrderDataInput): OrderResult
+}
