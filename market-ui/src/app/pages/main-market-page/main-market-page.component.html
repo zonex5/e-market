@@ -1,6 +1,19 @@
 <div class="pt-3">
   <p-messages [(value)]="messages" [enableService]="false" [closable]="true"></p-messages>
 
+  <div class="grid grid-nogutter surface-section text-800">
+    <div class="col-12 md:col-2 p-6 text-center md:text-left flex align-items-center ">
+      <section>
+        <span class="block text-4xl font-bold mb-1">Style at the click of a button</span>
+        <p class="mt-0 mb-4 text-700 line-height-3">Inspiration in every purchase</p>
+      </section>
+    </div>
+    <div class="col-12 md:col-10 overflow-hidden">
+      <img src="assets/images/banner-2.jpg" alt="Image" class="md:ml-auto block md:h-full" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
+    </div>
+    <!--<img src="assets/images/banner-2.jpg"  class="block h-full">-->
+  </div>
+
   <app-products-skeleton *ngIf="loading"/>
 
   <div *ngIf="hasResults">
