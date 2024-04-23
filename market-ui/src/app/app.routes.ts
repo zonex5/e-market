@@ -8,6 +8,9 @@ import {LoginComponent} from "./pages/login-page/login.component";
 import {CheckoutComponent} from "./pages/checkout/checkout.component";
 import {authGuard} from "./guards/auth.guard";
 import {FavouriteProductsComponent} from "./pages/favourite-products/favourite-products.component";
+import {PrivacyPageComponent} from "./pages/footer-pages/privacy-page/privacy-page.component";
+import {ReturnPolicyPageComponent} from "./pages/footer-pages/return-policy-page/return-policy-page.component";
+import {TermsAndConditionsComponent} from "./pages/footer-pages/terms-and-conditions/terms-and-conditions.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -18,5 +21,14 @@ export const routes: Routes = [
   {path: 'search', component: ProductsSearchMarketPageComponent},
   {path: 'cart', component: ShoppingCartComponent, canActivate: [authGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate: [authGuard]},
-  {path: 'favourites', component: FavouriteProductsComponent, canActivate: [authGuard]}
+  {path: 'favourites', component: FavouriteProductsComponent, canActivate: [authGuard]},
+  {
+    path: 'info',
+    children: [
+      {path: '', redirectTo: 'privacy', pathMatch: 'full'},
+      {path: 'privacy', component: PrivacyPageComponent},
+      {path: 'return-policy', component: ReturnPolicyPageComponent},
+      {path: 'terms', component: TermsAndConditionsComponent}
+    ]
+  }
 ];
