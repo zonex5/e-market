@@ -1,6 +1,13 @@
-1) product cards same height
+1) internationalizasion
 2) finish order logic
-!3) "contacts" and other pages
-4) Product description - spoiler on right side
-5) site logo
-6) "You may also like" on product details page
+3) My Orders screen
+4) My messages (or remove from menu)
+5) registration
+
+- remove styles from applayout.component.css
+- product cards same height
+- Product description - spoiler on right side
+- "You may also like" on product details page
+
++ "contacts" and other pages
++ site logo
