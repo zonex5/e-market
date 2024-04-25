@@ -14,6 +14,7 @@ import {TLoginUserData} from "../../types/TLoginUserData";
 import {Message, MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {MessagesModule} from "primeng/messages";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login-dialog',
@@ -30,7 +31,8 @@ import {MessagesModule} from "primeng/messages";
     RouterLink,
     ToastModule,
     MessagesModule,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   providers: [MessageService],
   templateUrl: './login-dialog.component.html',

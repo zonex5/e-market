@@ -82,6 +82,18 @@
     "wish": {
       "add": "Add to wish list",
       "remove": "Remove from wish list"
+    },
+    "login": {
+      "log_in": "Please log in",
+      "user_name": "User Name",
+      "type_user_name": "Type your email",
+      "email_required": "Email is required.",
+      "email_valid": "Email should be valid",
+      "password": "Password",
+      "type_password": "Type your password",
+      "password_required": "Password is required.",
+      "not_member": "Not a member?",
+      "register": "Register"
     }
   }
 }
