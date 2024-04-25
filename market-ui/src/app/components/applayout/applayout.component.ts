@@ -22,6 +22,7 @@ import {ToBoolPipe} from "../../pipes/to-bool.pipe";
 import {AvatarModule} from "primeng/avatar";
 import {Initials} from "../../helpers/string-utils";
 import {LanguageComponent} from "../language/language.component";
+import {TranslateModule, TranslatePipe, TranslateService} from "@ngx-translate/core";
 
 interface IMenuItemData {
   id: string
@@ -53,13 +54,43 @@ interface IMenuItemData {
     LoginDialogComponent,
     ToBoolPipe,
     AvatarModule,
-    LanguageComponent
+    LanguageComponent,
+    TranslateModule
   ],
   styleUrls: ['./applayout.component.css']
 })
 export class ApplayoutComponent implements OnInit {
 
-  items: MenuItem[] | undefined;
+  items: MenuItem[] = [
+    {
+      label: this.authService.userFullName,
+      items: [
+        {
+          icon: 'pi pi-book',
+          command: () => {
+            this.navigate('/orders');
+          }
+        },
+        {
+          icon: 'pi pi-heart',
+          command: () => {
+            this.navigate('/favourites');
+          }
+        },
+        {
+          icon: 'pi pi-comments',
+          command: () => {
+            this.logout();
+          }
+        },
+        {
+          icon: 'pi pi-times',
+          command: () => {
+            this.logout();
+          }
+        }
+      ]
+    }]
 
   menuData: IMenuItemData[] = []
   loading = true;
@@ -69,7 +100,8 @@ export class ApplayoutComponent implements OnInit {
               private apollo: Apollo,
               private router: Router,
               protected cartService: CartService,
-              protected authService: AuthService
+              protected authService: AuthService,
+              protected translate: TranslateService
   ) { }
 
   get initials() {
@@ -78,41 +110,7 @@ export class ApplayoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // set user info to menu
-    this.items = [
-      {
-        label: this.authService.userFullName,
-        items: [
-          {
-            label: 'My Orders',
-            icon: 'pi pi-book',
-            command: () => {
-              this.navigate('/orders');
-            }
-          },
-          {
-            label: 'My Favourites',
-            icon: 'pi pi-heart',
-            command: () => {
-              this.navigate('/favourites');
-            }
-          },
-          {
-            label: 'My Messages',
-            icon: 'pi pi-comments',
-            command: () => {
-              this.logout();
-            }
-          },
-          {
-            label: 'Sign out',
-            icon: 'pi pi-times',
-            command: () => {
-              this.logout();
-            }
-          }
-        ]
-      }]
+    this.translatePage()
 
     this.apollo.watchQuery({
       query: this.qs.queryMenuCategories
@@ -138,5 +136,21 @@ export class ApplayoutComponent implements OnInit {
 
   login() {
     this.authService.showLoginDialog()
+  }
+
+  private translatePage() {
+    this.translate.get('user.menu.orders').subscribe((res: string) => {
+      this.items[0].items![0].label = res
+    });
+    this.translate.get('user.menu.favourites').subscribe((res: string) => {
+      this.items[0].items![1].label = res
+    });
+    this.translate.get('user.menu.messages').subscribe((res: string) => {
+      this.items[0].items![2].label = res
+    });
+    this.translate.get('user.menu.signout').subscribe((res: string) => {
+      this.items[0].items![3].label = res
+    });
+
   }
 }

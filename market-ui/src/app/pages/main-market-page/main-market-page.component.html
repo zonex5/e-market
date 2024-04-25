@@ -4,20 +4,19 @@
   <div class="grid grid-nogutter surface-section text-800">
     <div class="col-12 md:col-2 p-6 text-center md:text-left flex align-items-center ">
       <section>
-        <span class="block text-4xl font-bold mb-1">Style at the click of a button</span>
-        <p class="mt-0 mb-4 text-700 line-height-3">Inspiration in every purchase</p>
+        <span class="block text-4xl font-bold mb-1">{{'banner.title' | translate}}</span>
+        <p class="mt-0 mb-4 text-700 line-height-3">{{'banner.subtitle' | translate}}</p>
       </section>
     </div>
     <div class="col-12 md:col-10 overflow-hidden">
       <img src="assets/images/banner-2.jpg" alt="Image" class="md:ml-auto block md:h-full" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
     </div>
-    <!--<img src="assets/images/banner-2.jpg"  class="block h-full">-->
   </div>
 
   <app-products-skeleton *ngIf="loading"/>
 
   <div *ngIf="hasResults">
-    <p class="text-base md:text-xl font-semibold">Our top picks just for you</p>
+    <p class="text-base md:text-xl font-semibold">{{'page.picks_for_you' | translate}}</p>
     <div class="flex flex-row flex-wrap gap-5">
       <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
     </div>
@@ -26,6 +25,6 @@
   <!--No results-->
   <div *ngIf="!hasResults && !loading" class="flex flex-column justify-content-center align-items-center mt-8">
     <img src="/assets/images/empty-cart.png" alt="empty-cart-img" width="283"/>
-    <h4>Sorry, something went wrong. Please try later.</h4>
+    <h4>{{'page.general_no_results' | translate}}</h4>
   </div>
 </div>

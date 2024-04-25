@@ -14,6 +14,7 @@ import {TSortingConfig} from "../../types/TSortingConfig";
 import {ResultPage} from "../ResultPage";
 import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
 import {MessagesModule} from "primeng/messages";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-products-search-market-page',
@@ -29,7 +30,8 @@ import {MessagesModule} from "primeng/messages";
     NgIf,
     PaginatorModule,
     ProductsSkeletonComponent,
-    MessagesModule
+    MessagesModule,
+    TranslateModule
   ],
   styleUrls: ['./products-search-market-page.component.css']
 })

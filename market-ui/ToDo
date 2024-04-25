@@ -1,13 +1,15 @@
-1) internationalizasion
+1) internationalization
 2) finish order logic
 3) My Orders screen
 4) My messages (or remove from menu)
 5) registration
 
+- calculate shipping cost
 - remove styles from applayout.component.css
 - product cards same height
 - Product description - spoiler on right side
 - "You may also like" on product details page
+- "Loading" on product page
 
 + "contacts" and other pages
 + site logo

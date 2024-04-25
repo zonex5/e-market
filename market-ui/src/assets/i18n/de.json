@@ -1,0 +1,87 @@
+{
+  "toolbar": {
+    "search_products": "Produktsuche",
+    "shopping_cart": "Mein Warenkorb",
+    "change_language": "Sprache ändern",
+    "my_profile": "Mein Profil"
+  },
+  "banner": {
+    "title": "Stylen Sie auf Knopfdruck",
+    "subtitle": "Inspiration bei jedem Einkauf"
+  },
+  "user": {
+    "menu": {
+      "orders": "Meine Bestellungen",
+      "favourites": "Meine Favoriten",
+      "messages": "Meine Nachrichten",
+      "signout": "Abmelden"
+    }
+  },
+  "page": {
+    "picks_for_you": "Unsere Top-Auswahl nur für Sie",
+    "general_no_results": "Entschuldigung, etwas ist schief gelaufen. Bitte versuch es später.",
+    "search": {
+      "what_looking": "Wonach suchst du?",
+      "search_results": "Suchergebnisse für",
+      "try_search_other_word": "Bitte überprüfen Sie, ob Sie etwas falsch geschrieben haben, oder versuchen Sie, mit anderen Wörtern zu suchen.",
+      "not_match": "Es tut uns leid, Ihre Suche ergab keine passenden Produkte.",
+      "more_to_love": "Mehr zu lieben"
+    },
+    "product": {
+      "add_to_cart": "In den Warenkorb legen",
+      "description": "Produktbeschreibung",
+      "quantity": "Menge",
+      "all_options": "Bitte wählen Sie alle Optionen aus",
+      "select_value": "Wähle einen Wert"
+    },
+    "cart": {
+      "shopping_cart": "Einkaufswagen",
+      "empty": "Noch keine Artikel? Shoppen Sie weiter, um mehr zu entdecken.",
+      "remove": "Aus dem Warenkorb entfernen",
+      "summary": "Zusammenfassung",
+      "total": "Gesamt",
+      "you_save": "Du sparst",
+      "place_order": "Bestellung aufgeben",
+      "we_accept": "Wir akzeptieren",
+      "buying_is_safe": "Der Kauf auf unserer Website ist sicher"
+    },
+    "checkout": {
+      "contact": "Kontakt",
+      "first_name": "Vorname",
+      "first_name_required": "Der Vorname ist erforderlich und sollte gültig sein",
+      "last_name": "Familienname",
+      "last_name_required": "Der Nachname ist erforderlich und sollte gültig sein",
+      "email_required": "E-Mail ist erforderlich und sollte gültig sein",
+      "phone": "Telefon",
+      "phone_required": "Die Telefonnummer ist erforderlich und sollte maximal 20 Zeichen lang sein",
+      "delivery": "Lieferung",
+      "country": "Land",
+      "country_required": "Land ist erforderlich",
+      "address": "Adresse",
+      "address_required": "Adresse ist erforderlich",
+      "postal_code": "Postleitzahl",
+      "postal_code_required": "Postleitzahl ist erforderlich",
+      "city": "Stadt",
+      "city_required": "Stadt ist erforderlich",
+      "save_information": "Bewahren Sie diese Informationen für das nächste Mal auf",
+      "shipping_method": "Versandart",
+      "subtotal": "Zwischensumme",
+      "total": "Gesamt",
+      "shipping": "Versand",
+      "secured": "Alle Transaktionen sind sicher und verschlüsselt.",
+      "payment": "Zahlung",
+      "finish_order": "Bestellung abschließen"
+    }
+  },
+  "footer": {
+    "privacy": "Datenschutzrichtlinie",
+    "return": "Rückgaberecht",
+    "terms": "Geschäftsbedingungen"
+  },
+  "component": {
+    "wish": {
+      "add": "Zur Wunschliste hinzufügen",
+      "remove": "Von der Wunschliste entfernen"
+    }
+  }
+}

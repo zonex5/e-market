@@ -1,0 +1,87 @@
+{
+  "toolbar": {
+    "search_products": "Search products",
+    "shopping_cart": "My shopping cart",
+    "change_language": "Change language",
+    "my_profile": "My profile"
+  },
+  "banner": {
+    "title": "Style at the click of a button",
+    "subtitle": "Inspiration in every purchase"
+  },
+  "user": {
+    "menu": {
+      "orders": "My Orders",
+      "favourites": "My Favourites",
+      "messages": "My Messages",
+      "signout": "Sign out"
+    }
+  },
+  "page": {
+    "picks_for_you": "Our top picks just for you",
+    "general_no_results": "Sorry, something went wrong. Please try later.",
+    "search": {
+      "what_looking": "What are you looking for?",
+      "search_results": "Search results for",
+      "try_search_other_word": "Please check if you have misspell something or try searching with other words.",
+      "not_match": "Sorry, your search did not match any products.",
+      "more_to_love": "More to love"
+    },
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "description": "Product description",
+      "quantity": "Quantity",
+      "all_options": "Please select all options",
+      "select_value": "Select a value"
+    },
+    "cart": {
+      "shopping_cart": "Shopping cart",
+      "empty": "No items yet? Continue shopping to explore more.",
+      "remove": "Remove from shopping cart",
+      "summary": "Summary",
+      "total": "Total",
+      "you_save": "You save",
+      "place_order": "Place order",
+      "we_accept": "We accept",
+      "buying_is_safe": "Buying on our website is safe"
+    },
+    "checkout": {
+      "contact": "Contact",
+      "first_name": "First name",
+      "first_name_required": "First name is required and should be valid",
+      "last_name": "Last name",
+      "last_name_required": "Last name is required and should be valid",
+      "email_required": "Email is required and should be valid",
+      "phone": "Phone",
+      "phone_required": "Phone is required and should be a maximum of 20 characters in length",
+      "delivery": "Delivery",
+      "country": "Country",
+      "country_required": "Country is required",
+      "address": "Address",
+      "address_required": "Address is required",
+      "postal_code": "Postal code",
+      "postal_code_required": "Postal code is required",
+      "city": "City",
+      "city_required": "City is required",
+      "save_information": "Save this information for next time",
+      "shipping_method": "Shipping method",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "shipping": "Shipping",
+      "secured": "All transactions are secure and encrypted.",
+      "payment": "Payment",
+      "finish_order": "Finish order"
+    }
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "return": "Return policy",
+    "terms": "Terms and conditions"
+  },
+  "component": {
+    "wish": {
+      "add": "Add to wish list",
+      "remove": "Remove from wish list"
+    }
+  }
+}

@@ -31,7 +31,7 @@
       </flex>
       <div class="flex justify-content-end">
         <app-product-price *ngIf="variantSelected" [price]="selectedVariantPrice" [inStock]="inStock"></app-product-price>
-        <p-tag *ngIf="!variantSelected" severity="warning" value="Please select all options"></p-tag>
+        <p-tag *ngIf="!variantSelected" severity="warning" [value]="'page.product.all_options' | translate"></p-tag>
       </div>
     </div>
     <p class="text-base text-800">{{ product.annotation }}</p>
@@ -41,7 +41,7 @@
       <span class="text-base mb-2">{{ item.name }}:</span>
       <p-dropdown [options]="item.values"
                   [style]="{width: '50%'}"
-                  placeholder="Select a value"
+                  [placeholder]="'page.product.select_value' | translate"
                   [(ngModel)]="userSelection[item.name]"
                   (ngModelChange)="onAttributeChange()">
       </p-dropdown>
@@ -49,7 +49,7 @@
 
     <!--Product count-->
     <div class="flex flex-column mt-4">
-      <span class="text-base mb-2">Count:</span>
+      <span class="text-base mb-2">{{ 'page.product.quantity' | translate }}:</span>
       <p-inputNumber [(ngModel)]="productCount"
                      [showButtons]="true"
                      buttonLayout="horizontal"
@@ -72,7 +72,8 @@
 
     <!--Put to cart button-->
     <div class="mt-5">
-      <p-button *ngIf="!inCart" [disabled]="disabledButton" label="Add to Cart" icon="pi pi-check" (click)="onBtnAddClick()"></p-button>
+      <p-button *ngIf="!inCart" [disabled]="disabledButton" [label]="'page.product.add_to_cart' | translate" icon="pi pi-check"
+                (click)="onBtnAddClick()"></p-button>
       <p-chip *ngIf="inCart" label="In cart" icon="pi pi-shopping-cart"></p-chip>
     </div>
 
@@ -81,7 +82,7 @@
 
 <!--Product detailed description-->
 <div *ngIf="!!product?.description" class="flex flex-column mt-4">
-  <p class="text-3xl">Product description</p>
+  <p class="text-3xl">{{ 'page.product.description' | translate }}</p>
   <p class="text-base">{{ product.description }}</p>
 </div>
 

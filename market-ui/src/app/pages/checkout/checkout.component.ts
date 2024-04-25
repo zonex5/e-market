@@ -12,6 +12,7 @@ import {Apollo} from "apollo-angular";
 import {TCountry} from "../../types/TCountry";
 import {TooltipModule} from "primeng/tooltip";
 import {MutationFinishOrder} from "../../graphql/mutation.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 interface DeliveryData {
   controls: {
@@ -43,7 +44,8 @@ type ShippingMethod = {
     PaymentLogoComponent,
     ButtonModule,
     NgIf,
-    TooltipModule
+    TooltipModule,
+    TranslateModule
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'

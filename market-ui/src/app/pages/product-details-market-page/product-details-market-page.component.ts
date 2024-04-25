@@ -24,6 +24,7 @@ import {AuthService} from "../../service/auth.service";
 import {MutationProductToWishList} from "../../graphql/mutation.service";
 import {ChipModule} from "primeng/chip";
 import {QuantityComponent} from "../../components/quantity/quantity.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 class SimpleVariant {
   price: TProductPrice | undefined | null
@@ -65,7 +66,8 @@ class SimpleVariant {
     FlexStartComponent,
     TagModule,
     ChipModule,
-    QuantityComponent
+    QuantityComponent,
+    TranslateModule
   ],
   styleUrls: ['./product-details-market-page.component.css']
 })

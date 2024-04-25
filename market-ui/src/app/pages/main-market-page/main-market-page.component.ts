@@ -8,6 +8,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {ProductCardComponent} from "../../components/product-card/product-card.component";
 import {ProductsSkeletonComponent} from "../../components/products-skeleton/products-skeleton.component";
 import {MessagesModule} from "primeng/messages";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-main-market-page',
@@ -22,7 +23,8 @@ import {MessagesModule} from "primeng/messages";
     PaginatorModule,
     ProductCardComponent,
     ProductsSkeletonComponent,
-    MessagesModule
+    MessagesModule,
+    TranslateModule
   ],
   styleUrls: ['./main-market-page.component.css']
 })

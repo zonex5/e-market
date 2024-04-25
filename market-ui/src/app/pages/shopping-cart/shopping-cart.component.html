@@ -7,8 +7,8 @@
 
     <!--Shopping cart-->
     <div class="flex flex-column col-8">
-      <p class="text-2xl font-semibold">Shopping cart</p>
-      <p-dataView #dv [value]="products" emptyMessage="No items yet? Continue shopping to explore more.">
+      <p class="text-2xl font-semibold">{{ 'page.cart.shopping_cart' | translate }}</p>
+      <p-dataView #dv [value]="products" [emptyMessage]="'page.cart.empty' | translate">
         <ng-template pTemplate="list" let-products>
           <div class="grid grid-nogutter">
             <div class="col-12" *ngFor="let item of products; let first = first">
@@ -31,7 +31,7 @@
                     <!--Delete button-->
                     <p-confirmPopup></p-confirmPopup>
                     <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="confirmDelete($event, item.id)"
-                              pTooltip="Remove from shopping cart" tooltipPosition="bottom"
+                              [pTooltip]="'page.cart.remove' | translate" tooltipPosition="bottom"
                               [style]="{width: '2rem', height: '2rem', 'border-radius': '100%', border: 0, background: '#f3f4f6', color: '#4b5563'}"></p-button>
                   </div>
                 </div>
@@ -44,29 +44,29 @@
 
     <!--Summary-->
     <div class="flex col-4 flex-column">
-      <p-panel class="w-full mt-4" header="Summary">
+      <p-panel class="w-full mt-4" [header]="'page.cart.summary' | translate">
         <!--Total price-->
         <div class="flex justify-content-between mb-2">
-          <span class="text-base font-semibold">Total:</span>
+          <span class="text-base font-semibold">{{ 'page.cart.total' | translate }}:</span>
           <span class="text-base font-semibold">{{ totalAmount | currency }}</span>
         </div>
         <!--You save-->
         <div *ngIf="savedAmount > 0" class="flex justify-content-between mb-3">
-          <span class="text-sm  text-color-secondary">You save:</span>
+          <span class="text-sm  text-color-secondary">{{ 'page.cart.you_save' | translate }}:</span>
           <span class="text-sm text-color-secondary">{{ savedAmount | currency }}</span>
         </div>
         <!--Place order button-->
         <p-button size="small" [disabled]="!hasItems" [routerLink]="['/checkout']" [style]="{width: '100%'}">
           <div class="w-full">
-            Place order
+            {{ 'page.cart.place_order' | translate }}
           </div>
         </p-button>
       </p-panel>
       <div class="flex flex-column mt-4 ml-1">
-        <span class="text-color-secondary text-base font-semibold">We accept</span>
+        <span class="text-color-secondary text-base font-semibold">{{ 'page.cart.we_accept' | translate }}</span>
         <app-payment-logo/>
         <div class="flex align-items-center gap-1 mt-2">
-          <span class="text-sm text-color-secondary">Buying on our website is safe</span>
+          <span class="text-sm text-color-secondary">{{ 'page.cart.buying_is_safe' | translate }}</span>
           <p class="pi pi-lock text-color-secondary" style="font-size: .7rem"></p>
         </div>
       </div>

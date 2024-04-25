@@ -24,6 +24,7 @@ import {ProgressBarModule} from "primeng/progressbar";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {RouterLink} from "@angular/router";
 import {PaymentLogoComponent} from "../../components/payment-logo/payment-logo.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -47,7 +48,8 @@ import {PaymentLogoComponent} from "../../components/payment-logo/payment-logo.c
     ProgressBarModule,
     ConfirmPopupModule,
     RouterLink,
-    PaymentLogoComponent
+    PaymentLogoComponent,
+    TranslateModule
   ],
   providers: [ConfirmationService],
   templateUrl: './shopping-cart.component.html',

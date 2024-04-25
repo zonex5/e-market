@@ -49,7 +49,7 @@ export class LanguageComponent implements OnInit {
 
   changeLanguage(lang: TLanguageItem) {
     this.selectedLanguage = lang
-    this.langService.language = lang.code
+    this.langService.setLanguage(lang.code)
     location.reload()
   }
 }

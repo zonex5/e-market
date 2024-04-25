@@ -3,17 +3,17 @@
 
     <!--Left side-->
     <div class="flex flex-column col-7 pl-8 pr-8 gap-3 mt-3">
-      <span class="text-2xl">Contact</span>
+      <span class="text-2xl">{{ 'page.checkout.contact' | translate }}</span>
 
       <!--First and last name-->
       <div class="flex gap-2">
         <div class="flex flex-column w-full">
-          <input class="w-full" type="text" placeholder="First name" pInputText [maxLength]="100" formControlName="firstName"/>
-          <small *ngIf="invalid('firstName')" class="p-error mt-1">First name is required and should be valid</small>
+          <input class="w-full" type="text" [placeholder]="'page.checkout.first_name' | translate" pInputText [maxLength]="100" formControlName="firstName"/>
+          <small *ngIf="invalid('firstName')" class="p-error mt-1">{{ 'page.checkout.first_name_required' | translate }}</small>
         </div>
         <div class="flex flex-column w-full">
-          <input class="w-full" type="text" placeholder="Last name" pInputText [maxLength]="100" formControlName="lastName"/>
-          <small *ngIf="invalid('lastName')" class="p-error mt-1">Last name is required and should be valid</small>
+          <input class="w-full" type="text" [placeholder]="'page.checkout.last_name' | translate" pInputText [maxLength]="100" formControlName="lastName"/>
+          <small *ngIf="invalid('lastName')" class="p-error mt-1">{{ 'page.checkout.last_name_required' | translate }}</small>
         </div>
       </div>
 
@@ -21,41 +21,41 @@
       <div class="flex gap-2">
         <div class="flex flex-column w-full">
           <input class="w-full" type="text" placeholder="Email" pInputText [maxLength]="100" formControlName="email"/>
-          <small *ngIf="invalid('email')" class="p-error mt-1">Email is required and should be valid</small>
+          <small *ngIf="invalid('email')" class="p-error mt-1">{{ 'page.checkout.email_required' | translate }}</small>
         </div>
         <div class="flex flex-column w-full">
-          <input class="w-full" type="text" placeholder="Phone" pInputText [maxLength]="20" formControlName="phone"/>
-          <small *ngIf="invalid('phone')" class="p-error mt-1">Phone is required and should be a maximum of 20 characters in length</small>
+          <input class="w-full" type="text" [placeholder]="'page.checkout.phone' | translate" pInputText [maxLength]="20" formControlName="phone"/>
+          <small *ngIf="invalid('phone')" class="p-error mt-1">{{ 'page.checkout.phone_required' | translate }}</small>
         </div>
       </div>
 
-      <span class="text-2xl mt-3">Delivery</span>
+      <span class="text-2xl mt-3">{{ 'page.checkout.delivery' | translate }}</span>
 
       <!--Country, address, city, zip-->
       <div class="flex flex-column w-full">
-        <p-dropdown [style]="{width: '100%'}" optionLabel="name" optionValue="id" placeholder="Country" [options]="countries"
+        <p-dropdown [style]="{width: '100%'}" optionLabel="name" optionValue="id" [placeholder]="'page.checkout.country' | translate" [options]="countries"
                     formControlName="country"></p-dropdown>
-        <small *ngIf="invalid('country')" class="p-error mt-1">Country is required</small>
+        <small *ngIf="invalid('country')" class="p-error mt-1">{{ 'page.checkout.country_required' | translate }}</small>
       </div>
       <div class="flex flex-column w-full">
-        <input type="text" placeholder="Address" pInputText [maxLength]="500" formControlName="address"/>
-        <small *ngIf="invalid('address')" class="p-error mt-1">Address is required</small>
+        <input type="text" [placeholder]="'page.checkout.address' | translate" pInputText [maxLength]="500" formControlName="address"/>
+        <small *ngIf="invalid('address')" class="p-error mt-1">{{ 'page.checkout.address_required' | translate }}</small>
       </div>
       <div class="flex gap-2">
         <div class="flex flex-column w-full">
-          <input class="w-full" type="text" placeholder="Postal code" pInputText [maxLength]="20" formControlName="zip"/>
-          <small *ngIf="invalid('zip')" class="p-error mt-1">Postal code is required</small>
+          <input class="w-full" type="text" [placeholder]="'page.checkout.postal_code' | translate" pInputText [maxLength]="20" formControlName="zip"/>
+          <small *ngIf="invalid('zip')" class="p-error mt-1">{{ 'page.checkout.contact' | translate }}</small>
         </div>
         <div class="flex flex-column w-full">
-          <input class="w-full" type="text" placeholder="City" pInputText [maxLength]="100" formControlName="city"/>
-          <small *ngIf="invalid('city')" class="p-error mt-1">City is required</small>
+          <input class="w-full" type="text" [placeholder]="'page.checkout.city' | translate" pInputText [maxLength]="100" formControlName="city"/>
+          <small *ngIf="invalid('city')" class="p-error mt-1">{{ 'page.checkout.city_required' | translate }}</small>
         </div>
       </div>
 
-      <p-checkbox class="text-color-secondary" [binary]="true" label="Save this information for next time" formControlName="save"></p-checkbox>
+      <p-checkbox class="text-color-secondary" [binary]="true" [label]="'page.checkout.save_information' | translate" formControlName="save"></p-checkbox>
 
       <!--Shipping method-->
-      <span class="text-2xl mt-3">Shipping method</span>
+      <span class="text-2xl mt-3">{{ 'page.checkout.shipping_method' | translate }}</span>
       <div class="flex justify-content-between w-full shipping-method">
         <span class="text-color-secondary text-sm">{{ shipping.methodName }}</span>
         <span class="text-sm font-semibold">{{ shipping.cost | currency }}</span>
@@ -69,15 +69,15 @@
       <p-panel header="Summary">
         <div class="flex flex-column gap-2">
           <div class="flex justify-content-between">
-            <span class="text-sm">Subtotal:</span>
+            <span class="text-sm">{{ 'page.checkout.subtotal' | translate }}:</span>
             <span class="text-sm">{{ amounts.subtotal | currency }}</span>
           </div>
           <div class="flex justify-content-between">
-            <span class="text-sm">Shipping:</span>
+            <span class="text-sm">{{ 'page.checkout.shipping' | translate }}:</span>
             <span class="text-sm">{{ amounts.shipping | currency }}</span>
           </div>
           <div class="flex justify-content-between">
-            <span class="text-base font-semibold">Total:</span>
+            <span class="text-base font-semibold">{{ 'page.checkout.total' | translate }}:</span>
             <span class="text-base font-semibold">{{ amounts.total | currency }}</span>
           </div>
         </div>
@@ -85,11 +85,11 @@
 
       <!--Payment method-->
       <div class="flex flex-column gap-3 mt-3">
-        <span class="text-color-secondary text-sm">All transactions are secure and encrypted.</span>
+        <span class="text-color-secondary text-sm">{{ 'page.checkout.secured' | translate }}</span>
         <p-panel>
           <ng-template pTemplate="header">
             <div class="flex justify-content-between align-items-center w-full">
-              <span class="font-semibold">Payment</span>
+              <span class="font-semibold">{{ 'page.checkout.payment' | translate }}</span>
               <app-payment-logo/>
             </div>
           </ng-template>
@@ -97,7 +97,7 @@
       </div>
 
       <!--Finish order-->
-      <p-button size="small" styleClass="w-full" type="submit" label="Finish order"></p-button>
+      <p-button size="small" styleClass="w-full" type="submit" [label]="'page.checkout.finish_order' | translate"></p-button>
     </div>
   </div>
 

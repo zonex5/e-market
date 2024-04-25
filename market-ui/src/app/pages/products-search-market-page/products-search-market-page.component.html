@@ -6,7 +6,8 @@
     <div class="flex w-full justify-content-center align-items-center">
       <p-iconField iconPosition="right" class="w-full md:w-5 cursor-pointer" (click)="onSearchButtonClick()">
         <p-inputIcon styleClass="pi pi-search"/>
-        <input type="text" pInputText placeholder="What are you looking for?" [(ngModel)]="searchText" (keydown)="onKeyDown($event)" class="w-full"/>
+        <input type="text" pInputText [placeholder]="'page.search.what_looking' | translate" [(ngModel)]="searchText" (keydown)="onKeyDown($event)"
+               class="w-full"/>
       </p-iconField>
     </div>
 
@@ -16,7 +17,7 @@
     <div *ngIf="hasResults" class="mt-4">
 
       <div class="flex justify-content-between">
-        <p class="text-base md:text-xl font-semibold">Search results for "{{ searchValue }}"</p>
+        <p class="text-base md:text-xl font-semibold">{{ 'page.search.search_results' | translate }} "{{ searchValue }}"</p>
         <div class="flex justify-content-end align-items-center">
           <p class="mr-2">Sort by:</p>
           <p-dropdown [options]="sortModeList" optionLabel="label" [(ngModel)]="sortMode" (onChange)="onSortChange()"></p-dropdown>
@@ -32,13 +33,13 @@
 
     <div *ngIf="!hasResults && searchValue.length > 0" class="flex flex-column justify-content-center align-items-center mt-4 md:mt-8">
       <img src="/assets/images/empty-cart.png" alt="empty-cart-img" width="283"/>
-      <h4>Sorry, your search "{{ searchValue }}" did not match any products.</h4>
-      <p class="text-color-secondary">Please check if you have misspell something or try searching with other words.</p>
+      <h4>{{ 'page.search.not_match' | translate }}</h4>
+      <p class="text-color-secondary">{{ 'page.search.try_search_other_word' | translate }}</p>
     </div>
 
     <!--Recommendations-->
     <div class="mt-5">
-      <p class="text-base md:text-xl font-semibold">More to love</p>
+      <p class="text-base md:text-xl font-semibold">{{ 'page.search.more_to_love' | translate }}</p>
       <div class="flex flex-row flex-wrap gap-5 w-full mt-4">
         <app-product-card *ngFor="let product of randomProducts" [data]=product></app-product-card>
       </div>

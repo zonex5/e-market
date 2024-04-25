@@ -2,13 +2,15 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {TooltipModule} from "primeng/tooltip";
 import {AuthService} from "../../service/auth.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-wish-list-button',
   standalone: true,
   imports: [
     CommonModule,
-    TooltipModule
+    TooltipModule,
+    TranslateModule
   ],
   templateUrl: './wish-list-button.component.html',
   styleUrl: './wish-list-button.component.css'
