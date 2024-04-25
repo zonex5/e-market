@@ -1,16 +1,17 @@
-1)
-2) finish order logic
-3) My Orders screen
-4) My messages (or remove from menu)
-5) registration
+1) finish order logic
+2) My Orders screen
+3) My messages (or remove from menu)
+4) registration
 
-- calculate shipping cost
 - remove styles from applayout.component.css
 - product cards same height
-- Product description - spoiler on right side
 - "You may also like" on product details page
 - "Loading" on product page
+- Galleria - adjust view
 
 + "contacts" and other pages
 + site logo
 + internationalization
++ Product description on right side
+
+* calculate shipping cost

@@ -32,7 +32,8 @@
       "description": "Product description",
       "quantity": "Quantity",
       "all_options": "Please select all options",
-      "select_value": "Select a value"
+      "select_value": "Select a value",
+      "category": "Category"
     },
     "cart": {
       "shopping_cart": "Shopping cart",

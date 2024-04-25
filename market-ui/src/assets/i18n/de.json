@@ -32,7 +32,8 @@
       "description": "Produktbeschreibung",
       "quantity": "Menge",
       "all_options": "Bitte wählen Sie alle Optionen aus",
-      "select_value": "Wähle einen Wert"
+      "select_value": "Wähle einen Wert",
+      "category": "Kategorie"
     },
     "cart": {
       "shopping_cart": "Einkaufswagen",

@@ -25,6 +25,7 @@ import {MutationProductToWishList} from "../../graphql/mutation.service";
 import {ChipModule} from "primeng/chip";
 import {QuantityComponent} from "../../components/quantity/quantity.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {ScrollPanelModule} from "primeng/scrollpanel";
 
 class SimpleVariant {
   price: TProductPrice | undefined | null
@@ -67,7 +68,8 @@ class SimpleVariant {
     TagModule,
     ChipModule,
     QuantityComponent,
-    TranslateModule
+    TranslateModule,
+    ScrollPanelModule
   ],
   styleUrls: ['./product-details-market-page.component.css']
 })

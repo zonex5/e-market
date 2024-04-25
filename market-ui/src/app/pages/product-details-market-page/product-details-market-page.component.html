@@ -1,6 +1,6 @@
 <div *ngIf="!!product" class="grid pt-4">
 
-  <!--Galleria-->
+  <!--Galleria (left side)-->
   <div class="col-12 md:col-5 bg-bluegray-50">
     <p-galleria [value]="imageUrls"
                 [showItemNavigatorsOnHover]="!smallScreen"
@@ -18,10 +18,10 @@
     </p-galleria>
   </div>
 
-  <!--Product data-->
+  <!--Product data (right side)-->
   <div class="col-12 md:col-7 pl-5">
     <div class="flex justify-content-between">
-      <p class="text-sm text-800">{{ product.category?.title }}</p>
+      <p class="text-sm text-800">{{ 'page.product.category' | translate }}: {{ product.category?.title }}</p>
       <!--todo  <p *ngIf="variantSelected" class="text-sm text-color-secondary font-semibold">SKU {{ selectedVariant.sku }}</p>-->
     </div>
     <div class="flex justify-content-between align-items-center m-0">
@@ -77,13 +77,15 @@
       <p-chip *ngIf="inCart" label="In cart" icon="pi pi-shopping-cart"></p-chip>
     </div>
 
-  </div>
-</div>
+    <!--Product detailed description-->
+    <div *ngIf="!!product?.description" class="flex flex-column mt-4">
+      <p class="text-2xl">{{ 'page.product.description' | translate }}</p>
+      <p-scrollPanel [style]="{ width: '100%', 'max-height': '350px' }">
+        <p class="text-base">{{ product.description }}</p>
+      </p-scrollPanel>
+    </div>
 
-<!--Product detailed description-->
-<div *ngIf="!!product?.description" class="flex flex-column mt-4">
-  <p class="text-3xl">{{ 'page.product.description' | translate }}</p>
-  <p class="text-base">{{ product.description }}</p>
+  </div>
 </div>
 
 
