@@ -28,4 +28,9 @@ public class SecurityController {
     private ResponseEntity<?> login(@RequestBody JwtUserModel user) {
         return ResponseEntity.ok(securityService.login(user));
     }
+
+    @PostMapping("/register")
+    private ResponseEntity<?> register(@RequestBody JwtUserModel user) {
+        return ResponseEntity.ok(securityService.register(user).block());  //todo
+    }
 }

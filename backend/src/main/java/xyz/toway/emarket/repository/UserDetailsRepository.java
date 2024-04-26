@@ -8,5 +8,4 @@ import xyz.toway.emarket.entity.UserDetailsEntity;
 @Repository
 public interface UserDetailsRepository extends ReactiveCrudRepository<UserDetailsEntity, Integer> {
     Mono<UserDetailsEntity> getByUsername(String username);
-    /*Optional<UserDetailsEntity> getByUsername(String username);*/
 }

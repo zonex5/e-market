@@ -42,7 +42,7 @@
         [disabled]="loginForm.invalid"
         type="submit"
       ></p-button>
-      <div class="mt-2">{{'component.login.not_member' | translate}} <a routerLink="/register">{{'component.login.register' | translate}} </a></div>
+      <div class="mt-2">{{'component.login.not_member' | translate}} <span class="cursor-pointer text-blue-700" (click)="switchToRegister()" >{{'component.login.sign_up' | translate}} </span></div>
     </form>
   </div>
   <ng-template pTemplate="footer">

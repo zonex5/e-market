@@ -15,6 +15,7 @@ export class AuthService {
   public loginDialogResult$ = new BehaviorSubject<string | null>(null)
 
   public loginDialogVisible = false
+  public registerDialogVisible = false
 
   get authenticated(): boolean {
     return this.signedUser$.getValue() != null
@@ -42,11 +43,21 @@ export class AuthService {
   }
 
   showLoginDialog() {
+    this.hideRegisterDialog()
     this.loginDialogVisible = true
   }
 
   hideLoginDialog() {
-    this.loginDialogVisible = true
+    this.loginDialogVisible = false
+  }
+
+  showRegisterDialog() {
+    this.hideLoginDialog()
+    this.registerDialogVisible = true
+  }
+
+  hideRegisterDialog() {
+    this.registerDialogVisible = false
   }
 
   saveUserData(userData: TUserDetails) {
@@ -61,8 +72,25 @@ export class AuthService {
     }
   }
 
-  login(userData: TLoginUserData): Observable<TUserDetails> {
+  login(userData: TLoginUserData): Observable<TUserDetails> {  //todo - generic
     return this.http.post<TUserDetails>(`${environment.apiUrl}/security/login`, userData)
+      .pipe(
+        tap((userData) => {
+          if (userData.loginResult === 'SUCCESS') {
+            if (userData.token && userData.uuid) {
+              this.saveUserData(userData)
+              this.signedUser$.next(userData)
+            } else {
+              userData.loginResult = 'OTHER'
+            }
+          }
+          this.loginDialogResult$.next(userData.loginResult)
+        })
+      )
+  }
+
+  register(userData: TLoginUserData): Observable<TUserDetails> {
+    return this.http.post<TUserDetails>(`${environment.apiUrl}/security/register`, userData)
       .pipe(
         tap((userData) => {
           if (userData.loginResult === 'SUCCESS') {

@@ -1,6 +1,7 @@
 package xyz.toway.emarket.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -10,6 +11,7 @@ import xyz.hamster.tools.annotations.GenerateReactiveRepository;
 @Data
 @Table(name = "customers", schema = "customer")
 @DataTransferObject
+@NoArgsConstructor
 public class CustomerEntity {
     @Id
     @Column("id")
@@ -33,4 +35,12 @@ public class CustomerEntity {
     @Column("email")
     private String email;
 
+    public CustomerEntity(Integer userId, String uuid, String firstName, String lastName, String phone, String email) {
+        this.userId = userId;
+        this.uuid = uuid;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+    }
 }

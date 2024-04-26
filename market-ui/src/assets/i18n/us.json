@@ -86,14 +86,19 @@
     },
     "login": {
       "log_in": "Please log in",
+      "sign_up": "Register a new user",
       "user_name": "User Name",
       "type_user_name": "Type your email",
       "email_required": "Email is required.",
       "email_valid": "Email should be valid",
       "password": "Password",
+      "repassword": "Retype Password",
       "type_password": "Type your password",
+      "retype_password": "Retype your password",
       "password_required": "Password is required.",
+      "not_match": "Passwords do not match",
       "not_member": "Not a member?",
+      "is_member": "Already a member?",
       "register": "Register"
     }
   }

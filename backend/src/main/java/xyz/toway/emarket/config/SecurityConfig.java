@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .antMatchers("/image/download/**").permitAll()
                 .antMatchers("/security/open").permitAll()
                 .antMatchers("/security/login").permitAll()
+                .antMatchers("/security/register").permitAll()
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .anyRequest().authenticated().and()
                 .build();

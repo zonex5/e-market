@@ -65,6 +65,11 @@ export class LoginDialogComponent implements OnInit {
     return this.loginForm.controls['password'];
   }
 
+  switchToRegister() {
+    this.loginForm.reset()
+    this.authService.showRegisterDialog()
+  }
+
   loginUser() {
     this.messages = []
     this.authService.login(this.loginForm.value as TLoginUserData)

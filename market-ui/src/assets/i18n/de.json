@@ -86,14 +86,19 @@
     },
     "login": {
       "log_in": "Bitte loggen Sie sich ein",
+      "sign_up": "Registrieren Sie einen neuen Benutzer",
       "user_name": "Nutzername",
       "type_user_name": "Geben Sie Ihre E-Mail-Adresse ein",
       "email_required": "E-Mail ist erforderlich.",
       "email_valid": "Die E-Mail-Adresse sollte gültig sein",
       "password": "Passwort",
+      "repassword": "Passwort wiederholen",
       "type_password": "Geben Sie Ihr Passwort ein",
+      "retype_password": "Passwort erneut eingeben",
       "password_required": "Passwort wird benötigt.",
+      "not_match": "Passwörter stimmen nicht überein",
       "not_member": "Kein Mitglied?",
+      "is_member": "Schon ein Mitglied?",
       "register": "Registrieren"
     }
   }

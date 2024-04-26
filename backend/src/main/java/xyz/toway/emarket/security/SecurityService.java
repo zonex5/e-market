@@ -13,8 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+import xyz.toway.emarket.entity.CustomerEntity;
+import xyz.toway.emarket.entity.UserDetailsEntity;
+import xyz.toway.emarket.entity.UserEntity;
 import xyz.toway.emarket.model.LoginResultModel;
+import xyz.toway.emarket.repository.CustomerRepository;
 import xyz.toway.emarket.repository.UserDetailsRepository;
+import xyz.toway.emarket.repository.UserRepository;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
@@ -23,6 +29,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Log4j2
@@ -42,6 +49,9 @@ public class SecurityService implements UserDetailsService {
     private final UserDetailsCashService cashService;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     @PostConstruct
     private void init() {
@@ -119,7 +129,7 @@ public class SecurityService implements UserDetailsService {
             return new LoginResultModel(LoginStatusEnum.OTHER);
         }
 
-        var dbUser = userDetailsRepository.getByUsername(user.getUsername()).block();
+        UserDetailsEntity dbUser = userDetailsRepository.getByUsername(user.getUsername()).block();  //todo
 
         if (dbUser == null) {
             return new LoginResultModel(LoginStatusEnum.USER_NOT_FOUND);
@@ -131,5 +141,29 @@ public class SecurityService implements UserDetailsService {
         } else {
             return new LoginResultModel(LoginStatusEnum.INVALID_PASSWORD);
         }
+    }
+
+    public Mono<LoginResultModel> register(JwtUserModel user) {
+
+        if (user == null || user.getPassword() == null || user.getUsername() == null) {
+            return Mono.just(new LoginResultModel(LoginStatusEnum.OTHER));
+        }
+
+        boolean userExists = Boolean.TRUE.equals(userRepository.existsByUsername(user.getUsername()).block()); //todo
+        if (userExists) {
+            return Mono.just(new LoginResultModel(LoginStatusEnum.USER_ALREADY_EXISTS));
+        }
+
+        // create new user
+        String password = passwordEncoder.encode(user.getPassword());
+        UserEntity userEntity = new UserEntity(user.getUsername(), password, true);
+
+        return userRepository.save(userEntity)
+                .flatMap(usr -> {
+                    String token = createToken(usr.getUsername(), List.of("ROLE_CUSTOMER"));
+                    CustomerEntity customerEntity = new CustomerEntity(usr.getId(), UUID.randomUUID().toString(), "", "", "", user.getUsername());
+                    return customerRepository.save(customerEntity)
+                            .map(customer -> new LoginResultModel(token, customer.getFirstName(), customer.getLastName(), customer.getUuid(), false, LoginStatusEnum.SUCCESS));
+                });
     }
 }

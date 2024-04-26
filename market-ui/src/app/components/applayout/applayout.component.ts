@@ -23,6 +23,7 @@ import {AvatarModule} from "primeng/avatar";
 import {Initials} from "../../helpers/string-utils";
 import {LanguageComponent} from "../language/language.component";
 import {TranslateModule, TranslatePipe, TranslateService} from "@ngx-translate/core";
+import {RegisterDialogComponent} from "../register-dialog/register-dialog.component";
 
 interface IMenuItemData {
   id: string
@@ -55,7 +56,8 @@ interface IMenuItemData {
     ToBoolPipe,
     AvatarModule,
     LanguageComponent,
-    TranslateModule
+    TranslateModule,
+    RegisterDialogComponent
   ],
   styleUrls: ['./applayout.component.css']
 })
@@ -105,7 +107,8 @@ export class ApplayoutComponent implements OnInit {
   ) { }
 
   get initials() {
-    return Initials(this.authService.userFullName)
+    const userInitials = Initials(this.authService.userFullName)
+    return userInitials.length > 0 ? userInitials : 'U'
   }
 
   ngOnInit(): void {
