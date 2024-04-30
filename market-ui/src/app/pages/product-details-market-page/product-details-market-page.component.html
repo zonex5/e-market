@@ -2,20 +2,7 @@
 
   <!--Galleria (left side)-->
   <div class="col-12 md:col-5">
-    <p-galleria [value]="imageUrls"
-                [showItemNavigatorsOnHover]="!smallScreen"
-                [showItemNavigators]="true"
-                [showThumbnails]="false"
-                [showIndicators]="true"
-                [showIndicatorsOnItem]="true"
-                [circular]="true"
-    >
-      <ng-template pTemplate="item" let-item>
-        <div class="flex justify-content-center align-items-center img-container">
-          <img [src]="item" style="width: 100%; height: 100%"/>
-        </div>
-      </ng-template>
-    </p-galleria>
+    <gallery [items]="images" [counter]="false" style="height: 800px; background-color: #fff"></gallery>
   </div>
 
   <!--Product data (right side)-->

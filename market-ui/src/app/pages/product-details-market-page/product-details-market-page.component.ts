@@ -26,6 +26,7 @@ import {ChipModule} from "primeng/chip";
 import {QuantityComponent} from "../../components/quantity/quantity.component";
 import {TranslateModule} from "@ngx-translate/core";
 import {ScrollPanelModule} from "primeng/scrollpanel";
+import {GalleryItem, GalleryModule, ImageItem} from "ng-gallery";
 
 class SimpleVariant {
   price: TProductPrice | undefined | null
@@ -69,7 +70,8 @@ class SimpleVariant {
     ChipModule,
     QuantityComponent,
     TranslateModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    GalleryModule
   ],
   styleUrls: ['./product-details-market-page.component.css']
 })
@@ -90,6 +92,8 @@ export class ProductDetailsMarketPageComponent implements OnInit { //todo unsubs
   productCount: number = 1
 
   selectedVariant: SimpleVariant
+
+  images: GalleryItem[];
 
   get variantSelected(): boolean {
     return Object.values(this.userSelection).every(value => value != null)
@@ -118,17 +122,6 @@ export class ProductDetailsMarketPageComponent implements OnInit { //todo unsubs
     ]).subscribe(result => {
       this.smallScreen = result.breakpoints[Breakpoints.XSmall]
     })
-
-    /*this.selectedVariant$.subscribe(v => {
-      if (v.productId) {
-        if (this.cartSubscription) {
-          this.cartSubscription.unsubscribe()
-          this.cartSubscription = null
-        }
-        this.cartSubscription = this.cartService.inCart(v.productId).subscribe(v => this.inCart = v)
-      }
-    })*/
-
 
     // load product details
     this.route.params.subscribe(params => {
@@ -159,6 +152,9 @@ export class ProductDetailsMarketPageComponent implements OnInit { //todo unsubs
         //create initial selection
         this.product?.attributes?.forEach(attr => this.userSelection[attr.name] = null)
       }
+
+      //create images list
+     this.images = (this.product?.images?.map(id => new ImageItem({src: environment.imgDownloadUrl + id, thumb: environment.imgDownloadUrl + id}))) || []
 
       //subscribe to shopping cart
       this.cartService.cartItems$.subscribe(v => {
