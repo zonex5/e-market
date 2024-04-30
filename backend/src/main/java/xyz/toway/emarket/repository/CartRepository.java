@@ -7,7 +7,10 @@ import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.CartEntity;
 
 public interface CartRepository extends ReactiveCrudRepository<CartEntity, Integer> {
+
     Mono<Void> deleteAllByCustomerIdAndProductId(Integer customerId, Integer productId);
+
+    Mono<Void> deleteAllByCustomerId(Integer customerId);
 
     @Modifying
     @Query("UPDATE market.cart c SET quantity = :quantity WHERE id_customer = :customerId AND id_product = :productId")

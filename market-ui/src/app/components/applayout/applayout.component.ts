@@ -79,12 +79,12 @@ export class ApplayoutComponent implements OnInit {
             this.navigate('/favourites');
           }
         },
-        {
+/*        {
           icon: 'pi pi-comments',
           command: () => {
             this.logout();
           }
-        },
+        },*/
         {
           icon: 'pi pi-times',
           command: () => {
@@ -148,11 +148,11 @@ export class ApplayoutComponent implements OnInit {
     this.translate.get('user.menu.favourites').subscribe((res: string) => {
       this.items[0].items![1].label = res
     });
-    this.translate.get('user.menu.messages').subscribe((res: string) => {
+    /*this.translate.get('user.menu.messages').subscribe((res: string) => {
       this.items[0].items![2].label = res
-    });
+    });*/
     this.translate.get('user.menu.signout').subscribe((res: string) => {
-      this.items[0].items![3].label = res
+      this.items[0].items![2].label = res
     });
 
   }

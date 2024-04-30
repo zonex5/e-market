@@ -5,9 +5,12 @@ import lombok.Getter;
 @Getter
 public enum OrderStatus {
     NEW("new"),
-    PROCESSING("processing"),
-    SUSPENDED("suspended"),
-    DONE("done");
+    SHIPPED("shipped"),
+    COMPLETED("completed"),
+
+    // used only by filter
+    ALL("all"),
+    ACTIVE("active");
 
     private final String value;
 

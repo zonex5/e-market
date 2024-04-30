@@ -1,18 +1,19 @@
 package xyz.toway.emarket.service;
 
+import com.google.common.base.Strings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.ReactiveTransactionManager;
 import org.springframework.transaction.reactive.TransactionalOperator;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.*;
+import xyz.toway.emarket.helper.enums.OrderStatus;
 import xyz.toway.emarket.model.*;
-import xyz.toway.emarket.repository.CartDataRepository;
-import xyz.toway.emarket.repository.CartProductRepo;
-import xyz.toway.emarket.repository.CustomerDataRepository;
-import xyz.toway.emarket.repository.CustomerRepository;
+import xyz.toway.emarket.repository.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -26,8 +27,16 @@ public class CustomerService {
     private final CartDataRepository cartDataRepository;
     private final OrderItemRepository orderItemRepository;
     private final CartProductRepo cartProductRepo;
+    private final OrderDataModelRepository orderDataModelRepository;
+    private final OrderDataItemRepository orderDataItemRepository;
+    private final CartRepository cartRepository;
 
     private final ReactiveTransactionManager transactionManager;
+
+    private static final List<String> ACTIVE_ORDERS_STATUS = List.of(
+            OrderStatus.NEW.getValue(),
+            OrderStatus.SHIPPED.getValue()
+    );
 
     public Mono<CustomerDataModel> getCustomerData(String uuid) {
         Objects.requireNonNull(uuid);
@@ -72,6 +81,8 @@ public class CustomerService {
                                             })
                                             // save order items
                                             .flatMap(od -> saveOrderItems(customer.getId(), od.getOrderId()))
+                                            // empty cart
+                                            .then(Mono.defer(() -> cartRepository.deleteAllByCustomerId(customer.getId())))
                                             .thenReturn(OrderResult.ok())
                             );
 
@@ -129,6 +140,25 @@ public class CustomerService {
                 .map(item -> new OrderItemEntity(null, orderId, item.productId(), item.price(), item.quantity()))
                 .collectList()
                 .flatMap(items -> orderItemRepository.saveAll(items).then());
+    }
+
+    public Flux<OrderDataModel> getOrderData(String uuid, String status) {
+        // all orders
+        if (Strings.isNullOrEmpty(status) || status.equals(OrderStatus.ALL.getValue())) {
+            return orderDataModelRepository.getAllByCustomerUuid(uuid);
+        }
+
+        // active orders
+        if (status.equals(OrderStatus.ACTIVE.getValue())) {
+            return orderDataModelRepository.getAllByCustomerUuidAndStatusIn(uuid, ACTIVE_ORDERS_STATUS);
+        }
+
+        // orders with other status
+        return orderDataModelRepository.getAllByCustomerUuidAndStatusIn(uuid, List.of(status));
+    }
+
+    public Flux<OrderDataItemModel> getOrderItems(Integer orderId, String lang) {
+        return orderDataItemRepository.getAllByOrderIdAndLang(orderId, lang);
     }
 
     private Mono<OrderResult> checkOrderProducts(Integer customerId) {

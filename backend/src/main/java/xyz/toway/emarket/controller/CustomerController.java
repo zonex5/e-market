@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.graphql.data.method.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.CustomerDataModel;
 import xyz.toway.emarket.model.*;
 import xyz.toway.emarket.service.CartService;
 import xyz.toway.emarket.service.CustomerService;
+
+import javax.annotation.security.RolesAllowed;
 
 @CrossOrigin
 @Controller
@@ -32,6 +35,20 @@ public class CustomerController {
     public Mono<CartModel> getCustomerCart(@ContextValue(name = "customer", required = false) String uuid, @ContextValue(required = false) String language) {
         return customerService.getCustomerCart(uuid, language)
                 .defaultIfEmpty(new CartModel());
+    }
+
+    @QueryMapping("getOrderData")
+    @RolesAllowed("ROLE_CUSTOMER")
+    public Flux<OrderDataModel> getOrderData(@Argument String status, @ContextValue(name = "customer", required = false) String uuid) {
+        return customerService.getOrderData(uuid, status);
+    }
+
+    @SchemaMapping(typeName = "OrderData", field = "items")
+    public Flux<OrderDataItemModel> getOrderDataItems(OrderDataModel order, @ContextValue(required = false) String language) {
+        if (order != null && order.getId() != null) {
+            return customerService.getOrderItems(order.getId(), language);
+        }
+        return Flux.empty();
     }
 
     @SchemaMapping(typeName = "NewOrderData", field = "customerData")

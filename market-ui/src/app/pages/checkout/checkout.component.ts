@@ -13,6 +13,8 @@ import {TCountry} from "../../types/TCountry";
 import {TooltipModule} from "primeng/tooltip";
 import {MutationFinishOrder} from "../../graphql/mutation.service";
 import {TranslateModule} from "@ngx-translate/core";
+import {Router} from "@angular/router";
+import {CartService} from "../../service/cart.service";
 
 interface DeliveryData {
   controls: {
@@ -80,6 +82,8 @@ export class CheckoutComponent implements OnInit {
   constructor(private qs: QueryService,
               private apollo: Apollo,
               private fb: FormBuilder,
+              private router: Router,
+              private cartService: CartService,
               private mutationFinishOrder: MutationFinishOrder
   ) {}
 
@@ -132,7 +136,8 @@ export class CheckoutComponent implements OnInit {
         .mutate({data: this.deliveryData.value})
         .subscribe({
           next: ({data}) => {
-            console.log('result', data)
+            this.cartService.refresh()
+            this.router.navigate(['/orders/list', 'new']);
           },
           complete: () => {
             console.log('complete')

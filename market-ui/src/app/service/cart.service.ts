@@ -39,4 +39,8 @@ export class CartService {
         }
       )
   }
+
+  refresh() {
+    this.queryTotal.refetch().then()
+  }
 }

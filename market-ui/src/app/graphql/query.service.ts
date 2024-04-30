@@ -260,4 +260,22 @@ export class QueryService {
       }
     }
   `
+
+  ordersData = gql`
+    query GetOrderData($status: String) {
+      getOrderData(status: $status) {
+        id
+        status
+        orderDate
+        items {
+          productId
+          productName
+          price
+          quantity
+          details
+          thumbnail
+        }
+      }
+    }
+  `
 }

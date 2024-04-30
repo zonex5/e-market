@@ -1,0 +1,29 @@
+<div *ngIf="orders.length > 0" class="flex flex-column row-gap-4">
+  <div *ngFor="let order of orders" class="flex flex-column border-container">
+    <div class="flex justify-content-between w-full mb-1">
+      <span class="text-sm text-color-secondary">Order date: {{ order.orderDate }}</span>
+      <span class="custom-badge text-xs" [ngClass]="statusClass(order.status)">{{ statusText(order.status) }}</span>
+    </div>
+    <p-dataView [value]="order.items">
+      <ng-template pTemplate="list" let-items>
+        <div *ngFor="let item of items; let first = first">
+          <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+            <img class="shadow-2 block border-round thumbnail" [src]="imageService.imageUrl(item.thumbnail)" [alt]="item.productName"/>
+            <div class="flex flex-row justify-content-between align-items-start flex-1">
+              <div class="flex flex-column gap-1">
+                <div class="text-base font-bold text-900">{{ item.productName }}</div>
+                <span class="text-color-secondary text-sm">{{ item.details + (item.details.length > 0 ? ',' : '') }} {{ item.quantity }} pc.</span>
+              </div>
+              <span class="text-base font-bold">{{ item.price | currency }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </div>
+</div>
+
+<div *ngIf="orders.length == 0" class="flex flex-column justify-content-center align-items-center mt-8">
+  <img src="/assets/images/empty-cart.png" alt="empty-cart-img" width="283"/>
+  <h4>There are no orders for the selected filter.</h4>
+</div>

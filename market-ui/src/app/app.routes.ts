@@ -11,6 +11,8 @@ import {FavouriteProductsComponent} from "./pages/favourite-products/favourite-p
 import {PrivacyPageComponent} from "./pages/footer-pages/privacy-page/privacy-page.component";
 import {ReturnPolicyPageComponent} from "./pages/footer-pages/return-policy-page/return-policy-page.component";
 import {TermsAndConditionsComponent} from "./pages/footer-pages/terms-and-conditions/terms-and-conditions.component";
+import {OrdersPageComponent} from "./pages/orders-page/orders-page.component";
+import {OrdersListComponent} from "./components/orders-list/orders-list.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -22,6 +24,21 @@ export const routes: Routes = [
   {path: 'cart', component: ShoppingCartComponent, canActivate: [authGuard]},
   {path: 'checkout', component: CheckoutComponent, canActivate: [authGuard]},
   {path: 'favourites', component: FavouriteProductsComponent, canActivate: [authGuard]},
+  {
+    path: 'orders', component: OrdersPageComponent, canActivate: [authGuard],
+    children: [
+      {path: '', redirectTo: 'list/all', pathMatch: 'full'},
+      {path: 'list/:type', component: OrdersListComponent},
+      /*{path: '**', redirectTo: 'list/all'}*/
+
+      /*{path: '', redirectTo: 'all', pathMatch: 'full'},
+      {path: 'all', component: OrdersListComponent},
+      {path: 'active', component: OrdersListComponent},
+      {path: 'new', component: OrdersListComponent},
+      {path: 'shipped', component: OrdersListComponent},
+      {path: 'completed', component: OrdersListComponent}*/
+    ]
+  },
   {
     path: 'info',
     children: [

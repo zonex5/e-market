@@ -1,0 +1,44 @@
+.custom-badge {
+  border-radius: var(--border-radius);
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+.custom-badge {
+  &.status-qualified {
+    background: #C8E6C9;
+    color: #256029;
+  }
+
+  &.status-unqualified {
+    background: #FFCDD2;
+    color: #C63737;
+  }
+
+  &.status-negotiation {
+    background: #FEEDAF;
+    color: #8A5340;
+  }
+
+  &.status-new {
+    background: #B3E5FC;
+    color: #23547B;
+  }
+
+  &.status-renewal {
+    background: #ECCFFF;
+    color: #694382;
+  }
+
+  &.status-proposal {
+    background: #FFD8B2;
+    color: #805B36;
+  }
+
+  &.status-unknown {
+    background: #d9d9d9;
+    color: #797979;
+  }
+}

@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.thumbnail {
+  object-fit: cover;
+  width: 130px;
+  height: 130px;
+}

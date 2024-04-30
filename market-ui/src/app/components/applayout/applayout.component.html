@@ -5,7 +5,7 @@
   </div>
 
   <div class="flex justify-content-start flex-wrap align-items-center pt-5 ml-5 h-full">
-    <a class="category-item "
+    <a class="category-item"
        *ngFor="let item of menuData"
        routerLinkActive="category-item-active"
        [routerLink]="['category', item.id]"
@@ -42,7 +42,7 @@
 <app-login-dialog></app-login-dialog>
 <app-register-dialog></app-register-dialog>
 
-<div class="pr-4 pl-4 pt-2 min-height-small sm:min-height-big">
+<div class="pr-4 pl-4 pt-2 min-height-small sm:min-height-big bg-bluegray-50">
   <router-outlet></router-outlet>
 </div>
 

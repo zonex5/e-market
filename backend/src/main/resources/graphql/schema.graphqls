@@ -90,15 +90,6 @@ type Price {
     sale: Boolean
 }
 
-type Compilation {
-    id: ID,
-    title: String,
-    annotation: String,
-    active: Boolean,
-    background: String,
-    products: [Product]
-}
-
 type CustomerSavedData {
     firstName: String,
     lastName: String,
@@ -131,6 +122,22 @@ type NewOrderData {
 type OrderResult {
     success: Boolean!,
     unavailableProducts: [Int]
+}
+
+type OrderDataItem {
+    productId: Int,
+    productName: String,
+    price: Float,
+    quantity: Int,
+    details: String,
+    thumbnail: Int
+}
+
+type OrderData {
+    id: Int,
+    status: String,
+    orderDate: String,
+    items: [OrderDataItem]
 }
 
 input OrderDataInput {
@@ -168,15 +175,6 @@ input PriceInput {
     fromDate: String
 }
 
-input CompilationInput {
-    id: ID,
-    title: String,
-    annotation: String,
-    active: Boolean,
-    background: String,
-    products: [Int]
-}
-
 input SortInput {
     field: String,
     direction: String,
@@ -194,12 +192,10 @@ type Query {
     getAllOrphansProducts: [Product]
     getProductById(id: Int!): Product
 
-    getAllCompilations: [Compilation]
-    getActiveCompilations: [Compilation]
-    getCompilationById(id: Int!): Compilation
-
     # getCustomerCartProducts: [CartProduct] todo remove?
     getCustomerCart: CustomerCart
+
+    getOrderData(status: String): [OrderData]
 
     productsByCategory(id: Int!, sort: SortInput): [Product]
     totalProductsByCategory(id: Int!): Int
@@ -225,10 +221,6 @@ type Mutation {
 
     addCurrentPrice(priceInput: PriceInput): Price
     deletePrice(priceId: Int): Boolean
-
-    addCompilation(compilationInput: CompilationInput): Compilation
-    updateCompilation(compilationInput: CompilationInput): Compilation
-    deleteCompilation(compilationId: Int): Boolean
 
     addProductToCart(id: Int!, quantity: Int!): Boolean
     deleteProductFromCart(id: Int!): Boolean

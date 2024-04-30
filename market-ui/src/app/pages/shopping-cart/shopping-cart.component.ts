@@ -25,6 +25,7 @@ import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {RouterLink} from "@angular/router";
 import {PaymentLogoComponent} from "../../components/payment-logo/payment-logo.component";
 import {TranslateModule} from "@ngx-translate/core";
+import {ImageService} from "../../service/image.service";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -75,10 +76,6 @@ export class ShoppingCartComponent implements OnInit {
     return !!this.totalAmount && this.totalAmount > 0
   }
 
-  imageUrl(imageId?: number | null): string {
-    return imageId ? environment.imgDownloadUrl + imageId : '/assets/no-image.png'
-  }
-
   hasDiscount(item: TCartProductItem) {
     return !!item?.discount && item.discount > 0
   }
@@ -87,7 +84,8 @@ export class ShoppingCartComponent implements OnInit {
               private qs: QueryService,
               private deleteProductFromCart: MutationDeleteProductFromCart,
               private updateQuantity: MutationUpdateQuantityInCart,
-              private confirmationService: ConfirmationService
+              private confirmationService: ConfirmationService,
+              protected imageService: ImageService
   ) {
     this.onQuantChange = this.onQuantChange.bind(this)
   }

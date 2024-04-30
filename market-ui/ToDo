@@ -1,17 +1,20 @@
-1) finish order logic
-2) My Orders screen
-3) My messages (or remove from menu)
-4) registration
+1) My profile page (edit name, email)
+2) Size Guide - remove or implement
+3) Show error on Checkout page (finish order) and other pages
+4) Change pagination
 
 - remove styles from applayout.component.css
 - product cards same height
 - "You may also like" on product details page
-- "Loading" on product page
+- "Loading" on all pages
 - Galleria - adjust view
+- account activation by email (or captcha)
 
 + "contacts" and other pages
 + site logo
 + internationalization
 + Product description on right side
++ registration
++ My Orders page
 
 * calculate shipping cost

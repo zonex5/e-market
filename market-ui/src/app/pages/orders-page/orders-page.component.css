@@ -1,0 +1,22 @@
+.menu-item {
+  padding: 10px 5px 10px 15px;
+  width: 100%;
+  position: relative;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+  background: var(--bluegray-50);
+  font-weight: 500;
+  color: var(--red-600);
+}
+
+.menu-item-active::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 4px;
+  height: 80%;
+  background-color: var(--red-600);
+}

@@ -1,0 +1,17 @@
+<div class="flex align-items-start justify-content-center gap-6 pt-5">
+  <!--Left side-->
+  <div class="flex col-2 border-container">
+    <div class="flex flex-column justify-content-between align-content-start w-full">
+      <div [routerLink]="['list','all']" routerLinkActive="menu-item-active" class="menu-item">All</div>
+      <div [routerLink]="['list','active']" routerLinkActive="menu-item-active" class="menu-item">Active</div>
+      <div [routerLink]="['list','new']" routerLinkActive="menu-item-active" class="menu-item">Awaiting shipment</div>
+      <div [routerLink]="['list','shipped']" routerLinkActive="menu-item-active" class="menu-item">Shipped</div>
+      <div [routerLink]="['list','completed']" routerLinkActive="menu-item-active" class="menu-item">Completed</div>
+    </div>
+  </div>
+
+  <!--Right side-->
+  <div class="flex col-8">
+    <router-outlet/>
+  </div>
+</div>
