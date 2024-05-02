@@ -11,6 +11,7 @@
   },
   "user": {
     "menu": {
+      "profile": "Mein Profil",
       "orders": "Meine Bestellungen",
       "favourites": "Meine Favoriten",
       "messages": "Meine Nachrichten",
@@ -100,6 +101,20 @@
       "not_member": "Kein Mitglied?",
       "is_member": "Schon ein Mitglied?",
       "register": "Registrieren"
+    },
+    "profile": {
+      "my_profile": "Mein Profil",
+      "firstname": "Vorname",
+      "lastname": "Familienname",
+      "email": "E-Mail",
+      "type_firstname": "Geben Sie Ihren Vornamen ein",
+      "type_lastname": "Geben Sie Ihren Nachnamen ein",
+      "type_email": "Geben Sie Ihre E-Mail-Adresse ein",
+      "firstname_required": "Vorname ist erforderlich.",
+      "lastname_required": "Nachname ist erforderlich.",
+      "email_required": "E-Mail ist erforderlich.",
+      "email_valid": "Die E-Mail-Adresse sollte gültig sein",
+      "save": "Änderungen speichern"
     }
   }
 }

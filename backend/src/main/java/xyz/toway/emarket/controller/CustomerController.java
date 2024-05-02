@@ -26,6 +26,12 @@ public class CustomerController {
         return customerService.finishOrder(data, uuid);
     }
 
+    @MutationMapping("saveCustomerData")
+    public Mono<Boolean> saveCustomerData(@Argument CustomerDataInputModel data, @ContextValue(name = "customer", required = false) String uuid) {
+        data.setUuid(uuid);
+        return customerService.saveCustomerData(data);
+    }
+
     @QueryMapping("newOrderData")
     public Mono<Object> shippingMethod() {
         return Mono.just(new Object());

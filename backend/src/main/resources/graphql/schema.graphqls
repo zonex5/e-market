@@ -182,6 +182,12 @@ input SortInput {
     size: Int
 }
 
+input CustomerDataInput {
+    email: String,
+    firstName: String,
+    lastName: String
+}
+
 type Query {
     getAllCategories: [Category]
     getActiveCategories: [Category]
@@ -228,4 +234,6 @@ type Mutation {
 
     productToWishList(id: Int!, flag: Boolean!): Boolean  # flag=true for add, flag=false for remove
     finishOrder(data: OrderDataInput): OrderResult
+
+    saveCustomerData(data: CustomerDataInput): Boolean
 }

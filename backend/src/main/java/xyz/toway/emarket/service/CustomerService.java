@@ -220,4 +220,17 @@ public class CustomerService {
                 .save(entity.getSave())
                 .build();
     }
+
+    public Mono<Boolean> saveCustomerData(CustomerDataInputModel data) {
+        Objects.requireNonNull(data);
+
+        return customerRepository.getFirstByUuid(data.getUuid())
+                .flatMap(customer -> {
+                    customer.setEmail(data.getEmail());
+                    customer.setFirstName(data.getFirstName());
+                    customer.setLastName(data.getLastName());
+                    return customerRepository.save(customer);
+                })
+                .thenReturn(true);
+    }
 }

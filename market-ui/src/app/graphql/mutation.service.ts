@@ -57,3 +57,11 @@ export class MutationFinishOrder extends Mutation {
       }
     }`
 }
+
+@Injectable({providedIn: 'root'})
+export class MutationSaveCustomerData extends Mutation {
+  override document = gql`
+    mutation saveCustomerData($data: CustomerDataInput!) {
+      saveCustomerData(data: $data)
+    }`
+}

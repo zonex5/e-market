@@ -29,6 +29,18 @@ export class AuthService {
     return (localStorage.getItem("user.firstName") ?? '') + (localStorage.getItem("user.lastName") ? ` ${localStorage.getItem("user.lastName")}` : '')
   }
 
+  get firstName(): string {
+    return localStorage.getItem("user.firstName") ?? ''
+  }
+
+  get lastName(): string {
+    return localStorage.getItem("user.lastName") ?? ''
+  }
+
+  get email(): string {
+    return localStorage.getItem("user.email") ?? ''
+  }
+
   constructor(private http: HttpClient) {  //todo only auth or not
     if (this.userDataStored()) {
       this.signedUser$.next({
@@ -69,6 +81,15 @@ export class AuthService {
     }
     if (userData.lastName) {
       localStorage.setItem('user.lastName', userData.lastName);
+    }
+  }
+
+  saveUserName(firstname: string, lastname: string) {
+    if (firstname) {
+      localStorage.setItem('user.firstName', firstname);
+    }
+    if (lastname) {
+      localStorage.setItem('user.lastName', lastname);
     }
   }
 

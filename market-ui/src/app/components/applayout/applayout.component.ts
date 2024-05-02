@@ -24,6 +24,7 @@ import {Initials} from "../../helpers/string-utils";
 import {LanguageComponent} from "../language/language.component";
 import {TranslateModule, TranslatePipe, TranslateService} from "@ngx-translate/core";
 import {RegisterDialogComponent} from "../register-dialog/register-dialog.component";
+import {ProfileDialogComponent} from "../profile-dialog/profile-dialog.component";
 
 interface IMenuItemData {
   id: string
@@ -57,7 +58,8 @@ interface IMenuItemData {
     AvatarModule,
     LanguageComponent,
     TranslateModule,
-    RegisterDialogComponent
+    RegisterDialogComponent,
+    ProfileDialogComponent
   ],
   styleUrls: ['./applayout.component.css']
 })
@@ -68,6 +70,12 @@ export class ApplayoutComponent implements OnInit {
       label: this.authService.userFullName,
       items: [
         {
+          icon: 'pi pi-user',
+          command: () => {
+            this.profileDialogVisible = true
+            console.log(this.profileDialogVisible)
+          }
+        }, {
           icon: 'pi pi-book',
           command: () => {
             this.navigate('/orders');
@@ -79,12 +87,12 @@ export class ApplayoutComponent implements OnInit {
             this.navigate('/favourites');
           }
         },
-/*        {
-          icon: 'pi pi-comments',
-          command: () => {
-            this.logout();
-          }
-        },*/
+        /*        {
+                  icon: 'pi pi-comments',
+                  command: () => {
+                    this.logout();
+                  }
+                },*/
         {
           icon: 'pi pi-times',
           command: () => {
@@ -97,6 +105,8 @@ export class ApplayoutComponent implements OnInit {
   menuData: IMenuItemData[] = []
   loading = true;
   error: any;
+
+  profileDialogVisible: boolean
 
   constructor(private qs: QueryService,
               private apollo: Apollo,
@@ -142,17 +152,20 @@ export class ApplayoutComponent implements OnInit {
   }
 
   private translatePage() {
-    this.translate.get('user.menu.orders').subscribe((res: string) => {
+    this.translate.get('user.menu.profile').subscribe((res: string) => {
       this.items[0].items![0].label = res
     });
-    this.translate.get('user.menu.favourites').subscribe((res: string) => {
+    this.translate.get('user.menu.orders').subscribe((res: string) => {
       this.items[0].items![1].label = res
+    });
+    this.translate.get('user.menu.favourites').subscribe((res: string) => {
+      this.items[0].items![2].label = res
     });
     /*this.translate.get('user.menu.messages').subscribe((res: string) => {
       this.items[0].items![2].label = res
     });*/
     this.translate.get('user.menu.signout').subscribe((res: string) => {
-      this.items[0].items![2].label = res
+      this.items[0].items![3].label = res
     });
 
   }

@@ -11,6 +11,7 @@
   },
   "user": {
     "menu": {
+      "profile": "My profile",
       "orders": "My Orders",
       "favourites": "My Favourites",
       "messages": "My Messages",
@@ -100,6 +101,20 @@
       "not_member": "Not a member?",
       "is_member": "Already a member?",
       "register": "Register"
+    },
+    "profile": {
+      "my_profile": "My profile",
+      "firstname": "First Name",
+      "lastname": "Last Name",
+      "email": "Email",
+      "type_firstname": "Type your First Name",
+      "type_lastname": "Type your Last Name",
+      "type_email": "Type your Email",
+      "firstname_required": "First Name is required.",
+      "lastname_required": "Last Name is required.",
+      "email_required": "Email is required.",
+      "email_valid": "Email should be valid",
+      "save": "Save Changes"
     }
   }
 }
