@@ -6,7 +6,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.CategoryEntity;
 import xyz.toway.emarket.model.CategoryModel;
-import xyz.toway.emarket.model.CategoryTranslationModel;
+import xyz.toway.emarket.entity.CategoryTranslationEntity;
 
 public interface CategoryRepository extends ReactiveCrudRepository<CategoryEntity, Integer> {
     @Query("select * from market.category_details where lang = :lang")  //todo replace with query methods
@@ -18,6 +18,6 @@ public interface CategoryRepository extends ReactiveCrudRepository<CategoryEntit
     @Query("select * from market.category_details where lang = :lang and id = :id") //todo replace with query methods
     Mono<CategoryModel> getById(Integer id, String lang);
 
-    @Query("select * from market.category_translation where id_category = :categoryId")
-    Flux<CategoryTranslationModel> getCategoryTranslations(Integer categoryId);
+    @Query("select id_translation as id, id as id_category, lang, title, annotation from market.category_details where id = :categoryId")
+    Flux<CategoryTranslationEntity> getCategoryTranslations(Integer categoryId);
 }

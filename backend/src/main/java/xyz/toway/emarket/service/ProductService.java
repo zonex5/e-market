@@ -21,14 +21,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final CategoryRepository categoryRepo;
     private final ProductRepository productRepo;
-    private final ProductImageRepo productImageRepo;
     private final ProductPriceRepo productPriceRepo;
-    private final CompilationRepository compilationRepo;
-    private final ProductsToCompilationRepository productsToCompilationRepository;
-    private final StringRepository stringRepository;
-    private final ConverterService converter;
     private final ImageRepository imageRepository;
     private final ProductDetailsRepository productDetailsRepo;
     private final WishListRepo wishListRepo;

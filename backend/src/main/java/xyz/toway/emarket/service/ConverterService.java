@@ -58,7 +58,7 @@ public final class ConverterService {
         return null;
     }
 
-    public CategoryEntity categoryToEntity(CategoryInputModel input) {
+    public CategoryEntity categoryToEntity(InputModel input) {
         /*CategoryEntity entity = new CategoryEntity();
         entity.setActive(Objects.requireNonNullElse(input.getActive(), true));
         entity.setTitleUuid(input.getTitle());  //todo

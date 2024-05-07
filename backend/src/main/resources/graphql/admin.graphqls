@@ -10,10 +10,16 @@ type AdmCategoryTranslation {
     title: String
 }
 
-input AdmCategoryInput {
-    id: ID
+input AdmCategoryTranslationInput {
+    id: ID,
+    lang: String,
     title: String
+}
+
+input AdmCategoryInput {
+    id: ID,
     active: Boolean
+    translations: [AdmCategoryTranslationInput]
 }
 
 extend type Query {
@@ -21,5 +27,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    saveCategory(category: AdmCategoryInput): Boolean
+    admSaveCategory(category: AdmCategoryInput!): Boolean
+    admDeleteCategory(id: Int!): Boolean
+    admNewCategory: Boolean
 }
