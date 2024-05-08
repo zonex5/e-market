@@ -9,7 +9,7 @@ import xyz.toway.emarket.model.CategoryModel;
 import xyz.toway.emarket.entity.CategoryTranslationEntity;
 
 public interface CategoryRepository extends ReactiveCrudRepository<CategoryEntity, Integer> {
-    @Query("select * from market.category_details where lang = :lang")  //todo replace with query methods
+    @Query("select * from market.category_details where lang = :lang order by title")
     Flux<CategoryModel> getAllByLang(String lang);
 
     @Query("select * from market.category_details where lang = :lang and active = :active") //todo replace with query methods

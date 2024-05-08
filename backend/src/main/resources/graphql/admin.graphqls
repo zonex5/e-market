@@ -10,24 +10,45 @@ type AdmCategoryTranslation {
     title: String
 }
 
-input AdmCategoryTranslationInput {
+type AdmProduct {
+    id: ID
+    active: Boolean
+    categoryId: Int
+    categoryTitle: String
+    title: String #used in list of products
+    translations: [AdmProductTranslation]
+}
+
+type AdmProductTranslation {
+    id: Int
+    lang: String
+    title: String
+    annotation: String
+    description: String
+}
+
+input AdmTranslationInput {
     id: ID,
     lang: String,
     title: String
 }
 
-input AdmCategoryInput {
+input AdmItemInput {
     id: ID,
     active: Boolean
-    translations: [AdmCategoryTranslationInput]
+    translations: [AdmTranslationInput]
 }
 
 extend type Query {
     admAllCategories: [AdmCategory]
+    admAllProducts(categoryId: Int, sort: SortInput): [AdmProduct]
+    admListCategories: [Category]
 }
 
 extend type Mutation {
-    admSaveCategory(category: AdmCategoryInput!): Boolean
+    admSaveCategory(category: AdmItemInput!): Boolean
     admDeleteCategory(id: Int!): Boolean
     admNewCategory: Boolean
+    admDeleteProduct(id: Int!): Boolean
+    admNewProduct: Boolean
 }

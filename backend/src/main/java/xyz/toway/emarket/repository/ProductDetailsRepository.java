@@ -11,7 +11,9 @@ public interface ProductDetailsRepository extends ReactiveCrudRepository<Product
 
     Flux<ProductModel> getAllByLangAndAvailable(String lang, Boolean available, Pageable pageable);
 
-    Mono<Integer> countAllByLangAndAvailable(String lang, Boolean available);
+    Flux<ProductModel> getAllByLang(String lang, Pageable pageable);
+
+    /*Mono<Integer> countAllByLangAndAvailable(String lang, Boolean available);*/
 
     Flux<ProductModel> getAllByLangAndCategoryId(String lang, Integer categoryId, Pageable pageable);
 

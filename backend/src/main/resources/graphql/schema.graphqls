@@ -191,30 +191,16 @@ input CustomerDataInput {
 type Query {
     getAllCategories: [Category]
     getActiveCategories: [Category]
-    getCategoryById(id: Int!) : Category
-
-    getAllProducts: [Product]
-    getActiveProducts: [Product]
-    getAllOrphansProducts: [Product]
     getProductById(id: Int!): Product
-
-    # getCustomerCartProducts: [CartProduct] todo remove?
     getCustomerCart: CustomerCart
-
     getOrderData(status: String): [OrderData]
-
     productsByCategory(id: Int!, sort: SortInput): [Product]
     totalProductsByCategory(id: Int!): Int
-
     productsByText(text: String!, sort: SortInput): [Product]
     totalProductsByText(text: String!): Int
-
     productsMainPage(sort: SortInput): [Product]
-    totalProductsMainPage: Int
-
     productsRandom(sort: SortInput): [Product]
     favourites: [Product]
-
     languages: [Language]
     countries: [Country]
     newOrderData: NewOrderData

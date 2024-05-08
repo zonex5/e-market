@@ -23,45 +23,15 @@ public class MarketController {
     private final CategoryService categoryService;
     private final CartService cartService;
 
-    @QueryMapping("getAllCategories")
-    public Flux<CategoryModel> getAllCategories(@ContextValue(required = false) String language) {
-        return categoryService.getCategoriesByLang(language);
-    }
-
     @QueryMapping("getActiveCategories")
     public Flux<CategoryModel> getActiveCategories(@ContextValue(required = false) String language) {
         return categoryService.getCategoriesByLang(true, language);
-    }
-
-    @QueryMapping("getCategoryById")
-    public Mono<CategoryModel> getCategoryById(@Argument Integer id, @ContextValue(required = false) String language) {
-        return categoryService.getCategoryById(id, language);
-    }
-
-    @QueryMapping("getAllProducts")
-    public Flux<ProductModel> getAllProducts(@ContextValue(required = false) String language) {
-        return productService.getAllProducts(language);
-    }
-
-    @QueryMapping("getActiveProducts")
-    public Flux<ProductModel> getActiveProducts(@ContextValue(required = false) String language) {
-        return productService.getActiveProducts(language);
-    }
-
-    @QueryMapping("getAllOrphansProducts")
-    public Flux<ProductModel> getAllOrphansProducts(@ContextValue(required = false) String language) {
-        return productService.getAllOrphans(language);
     }
 
     @QueryMapping("getProductById")
     public Mono<ProductModel> getProductById(@Argument Integer id, @ContextValue(required = false) String language) {
         return productService.getProductById(id, language);
     }
-
-    /*@QueryMapping("getCustomerCartProducts")
-    public Flux<CartProductModel> getCustomerCartProducts(@ContextValue(name = "customer", required = false) String uuid, @ContextValue(required = false) String language) {
-        return cartService.getCartProducts(uuid, language);
-    }*/
 
     @QueryMapping("productsByCategory")
     public Flux<ProductModel> productsByCategory(@Argument Integer id, @Argument SortInput sort, @ContextValue(required = false) String language) {
@@ -91,11 +61,6 @@ public class MarketController {
     @QueryMapping("productsMainPage")
     public Flux<ProductModel> productsMainPage(@Argument SortInput sort, @ContextValue(required = false) String language) {
         return productService.productsMainPage(language, sort);
-    }
-
-    @QueryMapping("totalProductsMainPage")
-    public Mono<Integer> totalProductsMainPage(@ContextValue(required = false) String language) {
-        return productService.totalProductsMainPage(language);
     }
 
     @QueryMapping("productsRandom")
@@ -170,80 +135,3 @@ public class MarketController {
         return productService.getProductVariantAttributes(variant.productId());
     }
 }
-
-/*    @SchemaMapping(typeName = "Compilation", field = "products")
-    public Flux<ProductModel> getCompilationProducts(@NonNull CompilationModel compilation, GraphQLContext context) {
-        return productService.getProductByCompilation(compilation.getId(), lang(context));
-    }
-
-    @QueryMapping("getAllCompilations")
-    public Flux<CompilationModel> getAllCompilations() {
-        return productService.getAllCompilations();
-    }
-
-    @QueryMapping("getActiveCompilations")
-    public Flux<CompilationModel> getActiveCompilations() {
-        return productService.getActiveCompilations();
-    }
-
-    @QueryMapping("getCompilationById")
-    public Mono<CompilationModel> getCompilationById(@Argument Integer id) {
-        return productService.getCompilationById(id);
-    }
-
-    @MutationMapping("addCategory")
-    public Mono<CategoryModel> addCategory(@Argument CategoryInputModel categoryInput) {
-        return productService.addCategory(categoryInput);
-    }
-
-    @MutationMapping("updateCategory")
-    public Mono<CategoryModel> updateCategory(@Argument CategoryInputModel categoryInput) {
-        return productService.updateCategory(categoryInput);
-    }
-
-    @MutationMapping("addProduct")
-    public Mono<ProductModel> addProduct(@Argument ProductInputModel productInput) {
-        return productService.addProduct(productInput);
-    }
-
-    @MutationMapping("updateProduct")
-    public Mono<ProductModel> updateProduct(@Argument ProductInputModel productInput) {
-        return productService.updateProduct(productInput);
-    }
-
-    @MutationMapping("deleteCategory")
-    public Mono<Boolean> deleteCategory(@Argument Integer categoryId) {
-        return productService.deleteCategory(categoryId);
-    }
-
-    @MutationMapping("deleteProduct")
-    public Mono<Boolean> deleteProduct(@Argument Integer productId) {
-        return productService.deleteProduct(productId);
-    }
-
-    @MutationMapping("deletePrice")
-    public Mono<Boolean> deletePrice(@Argument Integer priceId) {
-        return productService.deletePrice(priceId);
-    }
-
-
-    @MutationMapping("addCurrentPrice")
-    public Mono<PriceModel> addCurrentPrice(@Argument PriceInput priceInput) {
-        return productService.addCurrentPrice(priceInput);
-    }
-
-
-    @MutationMapping("addCompilation")
-    public Mono<CompilationModel> addCompilation(@Argument CompilationInputModel compilationInput) {
-        return productService.addCompilation(compilationInput);
-    }
-
-    @MutationMapping("updateCompilation")
-    public Mono<CompilationModel> updateCompilation(@Argument CompilationInputModel compilationInput) {
-        return productService.updateCompilation(compilationInput);
-    }
-
-    @MutationMapping("deleteCompilation")
-    public Mono<Boolean> deleteCompilation(@Argument Integer compilationId) {
-        return productService.deleteCompilation(compilationId);
-    }*/

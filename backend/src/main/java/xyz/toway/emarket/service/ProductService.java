@@ -9,11 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import xyz.toway.emarket.entity.CompilationRepository;
-import xyz.toway.emarket.entity.WishListEntity;
+import xyz.toway.emarket.entity.*;
 import xyz.toway.emarket.model.*;
 import xyz.toway.emarket.repository.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -27,23 +27,24 @@ public class ProductService {
     private final ProductDetailsRepository productDetailsRepo;
     private final WishListRepo wishListRepo;
     private final CustomerRepository customerRepository;
+    private final ProductTranslationRepo productTranslationRepo;
 
-    public Flux<ProductModel> getAllProducts(String lang) {
-        return productRepo.getAll(lang, null);
-    }
+/*    public Flux<ProductModel> getAllProducts(String lang) {
+        return productDetailsRepo.getAllByLang(lang, null);
+    }*/
 
-    public Flux<ProductModel> getActiveProducts(String lang) {
+    /*public Flux<ProductModel> getActiveProducts(String lang) {
         return productRepo.getAllByActive(true, lang, null);
-    }
+    }*/
 
     public Mono<ProductModel> getProductById(Integer id, String lang) {
         Objects.requireNonNull(id);
         return productRepo.getById(id, lang);
     }
 
-    public Flux<ProductModel> getAllOrphans(String lang) {
+    /*public Flux<ProductModel> getAllOrphans(String lang) {
         return productRepo.getAllOrphans(lang, null);
-    }
+    }*/
 
     public Flux<ProductModel> getProductsByCategory(Integer id, String lang) {
         Objects.requireNonNull(id);
@@ -111,9 +112,9 @@ public class ProductService {
         return productDetailsRepo.randomProducts(lang, Math.min(size, 50));
     }
 
-    public Mono<Integer> totalProductsMainPage(String lang) {
+    /*public Mono<Integer> totalProductsMainPage(String lang) {
         return productDetailsRepo.countAllByLangAndAvailable(lang, true);
-    }
+    }*/
 
     private ProductVariantModel convertVariant(ProductModel model) {
         return new ProductVariantModel(model.id(), model.parentId(), model.available(), new PriceModel(model.oldPrice(), model.newPrice(), model.currentPrice(), model.discount(), model.priceFromDate(), model.sale()), model.sku());
@@ -150,5 +151,50 @@ public class ProductService {
     public Flux<ProductModel> favourites(String customerUuid, String language) {
         return customerRepository.getFirstByUuid(customerUuid)
                 .flatMapMany(customer -> wishListRepo.getFavourites(customer.getId(), language));
+    }
+
+    public Mono<Boolean> deleteProduct(Integer id) {
+        return productRepo.deleteById(id)
+                .thenReturn(true)
+                .onErrorResume(ex -> Mono.just(false));
+    }
+
+    public Mono<Boolean> saveProduct(InputModel input) {  //todo transactional
+        Objects.requireNonNull(input);
+
+        return Mono.justOrEmpty(input.getId())
+                .flatMap(id -> productRepo.findById(id)
+                        .flatMap(product -> {
+                            product.setActive(input.getActive());
+                            return productRepo.save(product);
+                        }))
+                .switchIfEmpty(productRepo.save(new ProductEntity())) //todo
+                .flatMap(product -> saveTranslations(product.getId(), input.getTranslations()));
+    }
+
+    private Mono<Boolean> saveTranslations(Integer id, List<TranslationInputModel> translations) {
+        return productTranslationRepo.deleteAllByProductId(id)
+                .thenMany(Flux.fromIterable(translations))
+                .flatMap(translation -> {
+                    ProductTranslationEntity translationEntity = new ProductTranslationEntity(id,
+                            translation.getTitle(),
+                            translation.getAnnotation(),
+                            translation.getDescription(),
+                            translation.getLang());
+                    return productTranslationRepo.save(translationEntity);
+                })
+                .then(Mono.just(true))
+                .onErrorResume(ex -> Mono.just(false));
+    }
+
+    public Mono<Boolean> newProduct() {
+        TranslationInputModel defaultTranslation = new TranslationInputModel();
+        defaultTranslation.setLang("us");
+        defaultTranslation.setTitle("New Product");
+
+        InputModel model = new InputModel();
+        model.getTranslations().add(defaultTranslation);
+
+        return saveProduct(model);
     }
 }

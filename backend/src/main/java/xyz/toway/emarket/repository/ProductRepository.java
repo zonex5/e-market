@@ -13,11 +13,11 @@ import xyz.toway.emarket.model.ProductGeneralVariantModel;
 import xyz.toway.emarket.model.ProductModel;
 
 public interface ProductRepository extends ReactiveCrudRepository<ProductEntity, Integer> {
-    @Query("select * from market.products_details where lang = :lang")
-    Flux<ProductModel> getAll(String lang, Sort sort);
+    /*@Query("select * from market.products_details where lang = :lang")
+    Flux<ProductModel> getAll(String lang, Sort sort);*/
 
-    @Query("select * from market.products_details where lang = :lang and active = :active")
-    Flux<ProductModel> getAllByActive(Boolean active, String lang, Sort sort);
+    /*@Query("select * from market.products_details where lang = :lang and active = :active")
+    Flux<ProductModel> getAllByActive(Boolean active, String lang, Sort sort);*/
 
     @Query("select * from market.products_details where lang = :lang and id_category = :categoryId")
     Flux<ProductModel> getProductsByCategory(Integer categoryId, String lang, Pageable pageable);
@@ -28,8 +28,8 @@ public interface ProductRepository extends ReactiveCrudRepository<ProductEntity,
     @Query("select * from market.products_details where lang = :lang and id_category = :categoryId and available = :inStock")
     Flux<ProductModel> getAllByCategoryAndStock(Integer categoryId, Boolean inStock, String lang, Sort sort);
 
-    @Query("select * from market.products_details where lang = :lang and id_category is null")
-    Flux<ProductModel> getAllOrphans(String lang, Sort sort);
+    /*@Query("select * from market.products_details where lang = :lang and id_category is null")
+    Flux<ProductModel> getAllOrphans(String lang, Sort sort);*/
 
     @Query("select * from market.products_details where lang = :lang and id = :id")
     Mono<ProductModel> getById(Integer id, String lang);

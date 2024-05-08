@@ -2,18 +2,28 @@ package xyz.toway.emarket.service;
 
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import xyz.toway.emarket.entity.CategoryEntity;
 import xyz.toway.emarket.entity.CompilationEntity;
-import xyz.toway.emarket.entity.ProductEntity;
 import xyz.toway.emarket.model.*;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Log4j2
 @Component
 public final class ConverterService {
     private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+
+    public Pageable convertToPageable(SortInput sort) {
+        if (sort == null) return null;
+        String direction = Objects.requireNonNullElse(sort.direction(), "ASC");
+        String field = Objects.requireNonNullElse(sort.field(), "id");
+        return PageRequest.of(Math.max(sort.page(), 0), Math.min(sort.size(), 50), Sort.by(Sort.Direction.fromString(direction), field));
+    }
 
 /*    public ProductModel productToModel(ProductEntity entity) {
         return ProductModel.builder()
@@ -47,27 +57,27 @@ public final class ConverterService {
         return entity;
     }*/
 
-    public CategoryModel categoryToModel(CategoryEntity entity) {
-        /*return CategoryModel.builder()
+    /*    public CategoryModel categoryToModel(CategoryEntity entity) {
+     *//*return CategoryModel.builder()
                 .id(entity.getId())
                 //.title(entity.getTitleUuid()) //todo
                 //.annotation(entity.getAnnotationUuid())
                 .active(entity.getActive())
                 .pictureId(entity.getPictureId())
-                .build();*/
+                .build();*//*
         return null;
     }
 
     public CategoryEntity categoryToEntity(InputModel input) {
-        /*CategoryEntity entity = new CategoryEntity();
+        *//*CategoryEntity entity = new CategoryEntity();
         entity.setActive(Objects.requireNonNullElse(input.getActive(), true));
         entity.setTitleUuid(input.getTitle());  //todo
         entity.setAnnotationUuid(input.getAnnotation());
-        return entity;*/
+        return entity;*//*
         return null;
-    }
+    }*/
 
-    public ProductEntity productToEntity(ProductInputModel productInput) {
+   /* public ProductEntity productToEntity(ProductInputModel productInput) {
         ProductEntity entity = new ProductEntity();
         entity.setActive(productInput.isActive());
         entity.setAnnotationUuid(productInput.getAnnotation());
@@ -75,9 +85,9 @@ public final class ConverterService {
         entity.setTitleUuid(productInput.getTitle());
         entity.setCategoryId(productInput.getCategoryId());
         return entity;
-    }
+    }*/
 
-    public CompilationModel compilationToModel(CompilationEntity entity) {
+/*    public CompilationModel compilationToModel(CompilationEntity entity) {
         return CompilationModel.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
@@ -106,6 +116,6 @@ public final class ConverterService {
         double discountedPrice = originalPrice * (1 - discount / 100.0);
         discountedPrice = Math.round(discountedPrice * 100.0) / 100.0;
         return discountedPrice;
-    }
+    }*/
 }
 

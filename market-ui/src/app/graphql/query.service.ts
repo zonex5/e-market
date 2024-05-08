@@ -6,17 +6,6 @@ import {gql} from "apollo-angular";
 })
 export class QueryService {
 
-  queryAllCategories = gql`
-    query GetAllCategories {
-      getAllCategories {
-        id
-        title
-        annotation
-        active
-      }
-    }
-  `
-
   queryMenuCategories = gql`
     query activeCategories {
       getActiveCategories {
