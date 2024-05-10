@@ -3,7 +3,8 @@
 3) Show error on Checkout page (finish order) and other pages
 4) Change pagination
 5) add to favourites - need refresh
-6) on finish order - subtract product balanse
+6) on finish order - subtract product balance.
+7) Customer confirm that the order has been received
 
 - change login and register dialog to two way binding (like profile dialog)
 - remove styles from applayout.component.css

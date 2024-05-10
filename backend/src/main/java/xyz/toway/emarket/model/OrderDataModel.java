@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Immutable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -23,6 +24,12 @@ public class OrderDataModel {
 
     @Column("order_date")
     private LocalDate orderDate;
+
+    @Column("total_amount")
+    private BigDecimal totalAmount;
+
+    @Column("products_count")
+    private Integer productsCount;
 
     @Column("id_customer")
     private Integer customerId;

@@ -27,6 +27,26 @@ type AdmProductTranslation {
     description: String
 }
 
+type AdmOrderData {
+    id: Int
+    orderDate: String
+    totalAmount: Float
+    productsCount: Int
+    customerUuid: String
+    customerId: String
+    status: String
+    items: [AdmOrderItemData]
+}
+
+type AdmOrderItemData {
+    productId: Int
+    price: Float
+    quantity: Int
+    title: String
+    details: String
+    thumbnail: Int
+}
+
 input AdmTranslationInput {
     id: ID,
     lang: String,
@@ -52,6 +72,7 @@ extend type Query {
     admAllCategories: [AdmCategory]
     admAllProducts(categoryId: Int, sort: SortInput): [AdmProduct]
     admListCategories: [Category]
+    admOrders: [AdmOrderData]
 }
 
 extend type Mutation {

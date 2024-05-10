@@ -9,10 +9,7 @@ import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.CategoryEntity;
 import xyz.toway.emarket.entity.CategoryTranslationEntity;
 import xyz.toway.emarket.entity.ProductTranslationEntity;
-import xyz.toway.emarket.model.AdmProductModel;
-import xyz.toway.emarket.model.CategoryModel;
-import xyz.toway.emarket.model.InputModel;
-import xyz.toway.emarket.model.SortInput;
+import xyz.toway.emarket.model.*;
 import xyz.toway.emarket.service.AdminService;
 import xyz.toway.emarket.service.CategoryService;
 import xyz.toway.emarket.service.ProductService;
@@ -49,6 +46,11 @@ public class AdminController {
         } else {
             return adminService.getAllProductsByCategory(categoryId, sort);
         }
+    }
+
+    @QueryMapping("admOrders")
+    public Flux<OrderDataModel> admOrders(@Argument SortInput sort) {
+        return adminService.getOrders(sort);
     }
 
     @MutationMapping("admSaveCategory")
@@ -89,5 +91,10 @@ public class AdminController {
     @SchemaMapping(typeName = "AdmProduct", field = "translations")
     public Flux<ProductTranslationEntity> admProductTranslations(AdmProductModel product) {
         return adminService.getProductTranslations(product.id());
+    }
+
+    @SchemaMapping(typeName = "AdmOrderData", field = "items")
+    public Flux<OrderDataItemModel> admOrderDataItems(OrderDataModel order) {
+        return adminService.getOrderItems(order.getId());
     }
 }

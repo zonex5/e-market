@@ -28,7 +28,7 @@ public class OrderDataItemModel {
     private Integer quantity;
 
     @Column("title")
-    private String productName;
+    private String title;
 
     @Column("lang")
     private String lang;

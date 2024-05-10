@@ -1,5 +1,6 @@
 package xyz.toway.emarket.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import xyz.toway.emarket.model.OrderDataModel;
@@ -11,4 +12,6 @@ public interface OrderDataModelRepository extends ReactiveCrudRepository<OrderDa
     Flux<OrderDataModel> getAllByCustomerUuidAndStatusIn(String uuid, Collection<String> status);
 
     Flux<OrderDataModel> getAllByCustomerUuid(String uuid);
+
+    Flux<OrderDataModel> getAllByIdNotNull(Pageable pageable);
 }
