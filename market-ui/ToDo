@@ -3,6 +3,7 @@
 3) Show error on Checkout page (finish order) and other pages
 4) Change pagination
 5) add to favourites - need refresh
+6) on finish order - subtract product balanse
 
 - change login and register dialog to two way binding (like profile dialog)
 - remove styles from applayout.component.css

@@ -103,18 +103,14 @@ public class ProductService {
     }
 
     public Flux<ProductModel> productsMainPage(@NonNull String lang, @NonNull SortInput sort) {
-        Pageable pageable = PageRequest.of(Math.max(sort.page() - 1, 0), Math.min(sort.size(), 50), Sort.by(Sort.Direction.DESC, "discount").and(Sort.by(Sort.Direction.DESC, "addedDate")));
+        Pageable pageable = PageRequest.of(Math.max(sort.getPage() - 1, 0), Math.min(sort.getSize(), 50), Sort.by(Sort.Direction.DESC, "discount").and(Sort.by(Sort.Direction.DESC, "addedDate")));
         return productDetailsRepo.getAllByLangAndAvailable(lang, true, pageable);
     }
 
     public Flux<ProductModel> productsRandomSearchPage(@NonNull String lang, SortInput sort) {
-        int size = sort != null && sort.size() != null ? sort.size() : 20;
+        int size = sort != null && sort.getSize() != null ? sort.getSize() : 20;
         return productDetailsRepo.randomProducts(lang, Math.min(size, 50));
     }
-
-    /*public Mono<Integer> totalProductsMainPage(String lang) {
-        return productDetailsRepo.countAllByLangAndAvailable(lang, true);
-    }*/
 
     private ProductVariantModel convertVariant(ProductModel model) {
         return new ProductVariantModel(model.id(), model.parentId(), model.available(), new PriceModel(model.oldPrice(), model.newPrice(), model.currentPrice(), model.discount(), model.priceFromDate(), model.sale()), model.sku());
@@ -122,10 +118,10 @@ public class ProductService {
 
     private Pageable convertSort(SortInput sort) {
         if (sort == null) return null;
-        Sort.Direction direction = Sort.Direction.fromString(sort.direction());
-        String field = Objects.equals(sort.field(), "cost") ? "currentPrice" : "addedDate";
+        Sort.Direction direction = Sort.Direction.fromString(sort.getDirection());
+        String field = Objects.equals(sort.getField(), "cost") ? "currentPrice" : "addedDate";
 
-        return PageRequest.of(Math.max(sort.page(), 0), Math.min(sort.size(), 50), Sort.by(Sort.Direction.DESC, "available").and(Sort.by(direction, field)));
+        return PageRequest.of(Math.max(sort.getPage(), 0), Math.min(sort.getSize(), 50), Sort.by(Sort.Direction.DESC, "available").and(Sort.by(direction, field)));
     }
 
     public Mono<Boolean> inWishList(Integer id, String customerUuid) {
@@ -166,6 +162,7 @@ public class ProductService {
                 .flatMap(id -> productRepo.findById(id)
                         .flatMap(product -> {
                             product.setActive(input.getActive());
+                            product.setCategoryId(input.getCategoryId() == -1 ? null : input.getCategoryId());
                             return productRepo.save(product);
                         }))
                 .switchIfEmpty(productRepo.save(new ProductEntity())) //todo

@@ -28,15 +28,7 @@ export const routes: Routes = [
     path: 'orders', component: OrdersPageComponent, canActivate: [authGuard],
     children: [
       {path: '', redirectTo: 'list/all', pathMatch: 'full'},
-      {path: 'list/:type', component: OrdersListComponent},
-      /*{path: '**', redirectTo: 'list/all'}*/
-
-      /*{path: '', redirectTo: 'all', pathMatch: 'full'},
-      {path: 'all', component: OrdersListComponent},
-      {path: 'active', component: OrdersListComponent},
-      {path: 'new', component: OrdersListComponent},
-      {path: 'shipped', component: OrdersListComponent},
-      {path: 'completed', component: OrdersListComponent}*/
+      {path: 'list/:type', component: OrdersListComponent}
     ]
   },
   {

@@ -17,6 +17,8 @@ import xyz.toway.emarket.service.AdminService;
 import xyz.toway.emarket.service.CategoryService;
 import xyz.toway.emarket.service.ProductService;
 
+import java.util.Objects;
+
 @CrossOrigin
 @Controller
 @AllArgsConstructor
@@ -39,6 +41,7 @@ public class AdminController {
 
     @QueryMapping("admAllProducts")
     public Flux<AdmProductModel> admAllProducts(@Argument Integer categoryId, @Argument SortInput sort) {
+        sort = Objects.requireNonNullElse(sort, new SortInput("title", "ASC"));
         if (categoryId == null) {
             return adminService.getAllProducts(sort);
         } else if (categoryId == -1) {
@@ -51,6 +54,11 @@ public class AdminController {
     @MutationMapping("admSaveCategory")
     public Mono<Boolean> saveAdmCategory(@Argument InputModel category) {
         return categoryService.saveCategory(category);
+    }
+
+    @MutationMapping("admSaveProduct")
+    public Mono<Boolean> saveProduct(@Argument InputModel product) {
+        return productService.saveProduct(product);
     }
 
     @MutationMapping("admDeleteCategory")

@@ -20,9 +20,13 @@ public final class ConverterService {
 
     public Pageable convertToPageable(SortInput sort) {
         if (sort == null) return null;
-        String direction = Objects.requireNonNullElse(sort.direction(), "ASC");
-        String field = Objects.requireNonNullElse(sort.field(), "id");
-        return PageRequest.of(Math.max(sort.page(), 0), Math.min(sort.size(), 50), Sort.by(Sort.Direction.fromString(direction), field));
+        String direction = Objects.requireNonNullElse(sort.getDirection(), "ASC");
+        String field = Objects.requireNonNullElse(sort.getField(), "id");
+        return PageRequest.of(
+                Objects.requireNonNullElse(sort.getPage(), 0),
+                Objects.requireNonNullElse(sort.getSize(), 500),
+                Sort.by(Sort.Direction.fromString(direction), field)
+        );
     }
 
 /*    public ProductModel productToModel(ProductEntity entity) {

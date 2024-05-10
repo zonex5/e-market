@@ -10,6 +10,7 @@ import java.util.List;
 public class InputModel {
     private Integer id;
     private Boolean active;
+    private Integer categoryId;
     private List<TranslationInputModel> translations;
 
     public InputModel() {
