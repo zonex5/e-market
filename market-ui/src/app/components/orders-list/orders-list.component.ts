@@ -37,6 +37,10 @@ export class OrdersListComponent implements OnInit {
         return {'status-proposal': true}
       case 'completed' :
         return {'status-unknown': true}
+      case 'canceled' :
+        return {'status-unqualified': true}
+      case 'pending' :
+        return {'status-negotiation': true}
       default:
         return {}
     }
@@ -67,7 +71,8 @@ export class OrdersListComponent implements OnInit {
 
         console.log(this.orders)
       },
-      error: () => {}
+      error: () => {
+      }
     })
   }
 

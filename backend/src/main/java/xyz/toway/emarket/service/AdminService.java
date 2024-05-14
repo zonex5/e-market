@@ -3,8 +3,11 @@ package xyz.toway.emarket.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.OrderDataRepository;
+import xyz.toway.emarket.entity.OrderRepository;
 import xyz.toway.emarket.entity.ProductTranslationEntity;
+import xyz.toway.emarket.helper.enums.OrderStatus;
 import xyz.toway.emarket.model.AdmProductModel;
 import xyz.toway.emarket.model.OrderDataItemModel;
 import xyz.toway.emarket.model.OrderDataModel;
@@ -21,6 +24,7 @@ public class AdminService {
     private final ProductTranslationRepo productTranslationRepo;
     private final OrderDataModelRepository orderDataRepository;
     private final OrderDataItemRepository orderDataItemRepository;
+    private final OrderRepository orderRepository;
 
     public Flux<AdmProductModel> getAllProducts(SortInput sort) {
         return admProductRepository.findByIdNotNull(converterService.convertToPageable(sort));
@@ -44,5 +48,16 @@ public class AdminService {
 
     public Flux<OrderDataItemModel> getOrderItems(Integer id) {
         return orderDataItemRepository.getAllByOrderIdAndLang(id, "us");
+    }
+
+    public Mono<Boolean> setOrderStatus(Integer id, String status) {
+        return orderRepository.findById(id)
+                .flatMap(order -> {
+                    OrderStatus orderStatus = OrderStatus.fromString(status);
+                    order.setStatus(orderStatus.getValue());
+                    return orderRepository.save(order);
+                })
+                .thenReturn(true)
+                .onErrorReturn(false);
     }
 }

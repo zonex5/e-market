@@ -83,6 +83,11 @@ public class AdminController {
         return productService.deleteProduct(id);
     }
 
+    @MutationMapping("admSetOrderStatus")
+    public Mono<Boolean> setOrderStatus(@Argument Integer id, @Argument String status) {
+        return adminService.setOrderStatus(id, status);
+    }
+
     @SchemaMapping(typeName = "AdmCategory", field = "translations")
     public Flux<CategoryTranslationEntity> admCategoryTranslations(CategoryEntity category) {
         return categoryService.getCategoryTranslations(category.getId());

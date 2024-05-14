@@ -82,4 +82,5 @@ extend type Mutation {
     admDeleteProduct(id: Int!): Boolean
     admNewProduct: Boolean
     admSaveProduct(product: AdmProductInput!): Boolean
+    admSetOrderStatus(id: Int!, status: String): Boolean
 }
