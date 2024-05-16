@@ -47,7 +47,6 @@ export class FavouriteProductsComponent extends ResultPage implements OnInit, On
       .mutate({id, flag: false})
       .subscribe({
         complete: () => {
-          console.log('refetch')
           this.queryFavourites.refetch()
         },
         error: () => {

@@ -7,11 +7,11 @@
       <p class="mr-2">Sort by:</p>
       <p-dropdown [options]="sortModeList" optionLabel="label" [(ngModel)]="sortMode" (onChange)="onSortChange()"></p-dropdown>
     </div>
-    <div class="flex flex-row flex-wrap gap-5">
+    <div class="flex flex-row flex-wrap gap-5 mb-5">
       <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
     </div>
-    <p-paginator *ngIf="showPaginator" (onPageChange)="onPageChange($event)" [first]="firstRecords" [rows]="currentSort.size"
-                 [totalRecords]="totalProducts"></p-paginator>
+    <p-paginator (onPageChange)="onPageChange($event)" [first]="firstRecords" [rows]="currentSort.size"
+                 [totalRecords]="totalProducts" [rowsPerPageOptions]="[5, 10, 50]"></p-paginator>
   </div>
 
   <!--No results-->

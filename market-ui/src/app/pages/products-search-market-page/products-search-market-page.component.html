@@ -27,7 +27,7 @@
       <div class="flex flex-row flex-wrap gap-5 w-full mt-4 justify-content-between">
         <app-product-card *ngFor="let product of products" [data]=product></app-product-card>
       </div>
-      <p-paginator *ngIf="showPaginator" (onPageChange)="onPageChange($event)" [first]="firstRecords" [rows]="currentSort.size"
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="firstRecords" [rows]="currentSort.size"
                    [totalRecords]="totalProducts"></p-paginator>
     </div>
 

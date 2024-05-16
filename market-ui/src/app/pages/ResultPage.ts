@@ -37,14 +37,12 @@ export abstract class ResultPage implements OnDestroy {
 
   sortMode: TSortingMode = this.sortModeList[2]
 
-  initialSort: TSortingConfig = {
+  currentSort: TSortingConfig = {
     field: this.sortMode.value,
     direction: this.sortMode.direction,
     page: 0,
-    size: 5
+    size: 10
   }
-
-  currentSort: TSortingConfig = {...this.initialSort}
 
   get loading(): boolean {
     return this.loadingTotals || this.loadingData;
@@ -60,10 +58,6 @@ export abstract class ResultPage implements OnDestroy {
 
   get hasResults(): boolean {
     return this.products && this.products.length > 0
-  }
-
-  get showPaginator(): boolean {
-    return this.totalProducts > this.initialSort.size
   }
 
   setLoading(value: boolean) {
@@ -100,11 +94,11 @@ export abstract class ResultPage implements OnDestroy {
   }
 
   onPageChange(v: any) {
-    console.log(v)
     this.firstRecords = v.first
     this.currentSort = {
       ...this.currentSort,
-      page: v.page
+      page: v.page,
+      size: v.rows
     }
     this.refetch()
   }
@@ -114,8 +108,8 @@ export abstract class ResultPage implements OnDestroy {
     this.currentSort = {
       field: this.sortMode.value,
       direction: this.sortMode.direction,
-      page: this.initialSort.page,
-      size: this.initialSort.size
+      page: 0,
+      size: this.currentSort.size
     }
     this.refetch()
   }
