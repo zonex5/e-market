@@ -16,7 +16,9 @@ type AdmProduct {
     categoryId: Int
     categoryTitle: String
     title: String #used in list of products
+    thumbnail: Int
     translations: [AdmProductTranslation]
+    images: [Int]
 }
 
 type AdmProductTranslation {
@@ -73,6 +75,7 @@ extend type Query {
     admAllProducts(categoryId: Int, sort: SortInput): [AdmProduct]
     admListCategories: [Category]
     admOrders: [AdmOrderData]
+    admProduct(id: Int!): AdmProduct
 }
 
 extend type Mutation {
@@ -83,4 +86,6 @@ extend type Mutation {
     admNewProduct: Boolean
     admSaveProduct(product: AdmProductInput!): Boolean
     admSetOrderStatus(id: Int!, status: String): Boolean
+    admDeleteImage(id: Int!): Boolean
+    admUpdateThumbnail(imageId: Int!, productId: Int!): Boolean
 }

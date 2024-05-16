@@ -48,6 +48,11 @@ public class AdminController {
         }
     }
 
+    @QueryMapping("admProduct")
+    public Mono<AdmProductModel> admProduct(@Argument Integer id) {
+        return adminService.getProductById(id);
+    }
+
     @QueryMapping("admOrders")
     public Flux<OrderDataModel> admOrders(@Argument SortInput sort) {
         return adminService.getOrders(sort);
@@ -88,6 +93,16 @@ public class AdminController {
         return adminService.setOrderStatus(id, status);
     }
 
+    @MutationMapping("admDeleteImage")
+    public Mono<Boolean> deleteImage(@Argument Integer id) {
+        return adminService.deleteImage(id);
+    }
+
+    @MutationMapping("admUpdateThumbnail")
+    public Mono<Boolean> updateThumbnail(@Argument Integer imageId, @Argument Integer productId) {
+        return adminService.updateThumbnail(imageId, productId);
+    }
+
     @SchemaMapping(typeName = "AdmCategory", field = "translations")
     public Flux<CategoryTranslationEntity> admCategoryTranslations(CategoryEntity category) {
         return categoryService.getCategoryTranslations(category.getId());
@@ -96,6 +111,11 @@ public class AdminController {
     @SchemaMapping(typeName = "AdmProduct", field = "translations")
     public Flux<ProductTranslationEntity> admProductTranslations(AdmProductModel product) {
         return adminService.getProductTranslations(product.id());
+    }
+
+    @SchemaMapping(typeName = "AdmProduct", field = "images")
+    public Flux<Integer> admProductImages(AdmProductModel product) {
+        return adminService.getProductImages(product.id());
     }
 
     @SchemaMapping(typeName = "AdmOrderData", field = "items")

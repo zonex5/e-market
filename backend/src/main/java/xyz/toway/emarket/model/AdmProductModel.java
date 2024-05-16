@@ -21,6 +21,9 @@ public record AdmProductModel(
         @Column("id_category")
         Integer categoryId,
 
+        @Column("thumbnail")
+        Integer thumbnail,
+
         @Column("category_title")
         String categoryTitle,
 

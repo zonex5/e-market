@@ -187,7 +187,7 @@ public class ProductService {
     public Mono<Boolean> newProduct() {
         TranslationInputModel defaultTranslation = new TranslationInputModel();
         defaultTranslation.setLang("us");
-        defaultTranslation.setTitle("New Product");
+        defaultTranslation.setTitle("[New Product]");
 
         InputModel model = new InputModel();
         model.getTranslations().add(defaultTranslation);

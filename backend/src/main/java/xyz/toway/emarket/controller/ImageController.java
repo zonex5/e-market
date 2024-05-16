@@ -7,7 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import xyz.toway.emarket.helper.HttpControllerHelper;
 import xyz.toway.emarket.service.ImageService;
+import org.springframework.web.reactive.function.server.ServerRequest;
 
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/image")
@@ -16,10 +18,10 @@ public class ImageController {
     private final ImageService imageService;
     private final HttpControllerHelper httpHelper;
 
-    @PostMapping("/upload")
-    private Mono<ResponseEntity<?>> uploadImage(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/upload/{productId}")
+    private Mono<ResponseEntity<?>> uploadImage(@RequestParam("file") MultipartFile file, @PathVariable Integer productId) {
         return Mono.justOrEmpty(file)
-                .flatMap(f -> imageService.saveFile(f)
+                .flatMap(f -> imageService.saveFile(f, productId)
                         .map(savedImage -> ResponseEntity.ok().build())
                         .onErrorResume(error -> Mono.just(ResponseEntity.badRequest().body("Failed to upload image."))));
     }

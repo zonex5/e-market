@@ -9,8 +9,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 import xyz.toway.emarket.entity.ImageEntity;
+import xyz.toway.emarket.entity.ImageToProductEntity;
 import xyz.toway.emarket.helper.MinioFile;
 import xyz.toway.emarket.repository.ImageRepository;
+import xyz.toway.emarket.repository.ProductImageRepo;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -27,16 +29,18 @@ public class ImageService {
 
     private final MinioService minioService;
     private final ImageRepository imageRepository;
+    private final ProductImageRepo productImageRepo;
 
     @Transactional
-    public Mono<?> saveFile(MultipartFile file) {
+    public Mono<?> saveFile(MultipartFile file, Integer productId) {
         Objects.requireNonNull(file, "MultipartFile is null.");
 
         var uuid = UUID.randomUUID().toString();
         var filename = Optional.ofNullable(file.getOriginalFilename()).map(StringUtils::getFilenameExtension).map(ext -> "." + ext.toLowerCase()).map(ext -> uuid + ext).orElse(uuid);
 
         return saveToMinio(file, filename)
-                .flatMap(obj -> imageRepository.save(new ImageEntity(filename, file.getContentType())));
+                .flatMap(obj -> imageRepository.save(new ImageEntity(filename, file.getContentType())))
+                .flatMap(img -> productImageRepo.save(new ImageToProductEntity(productId, img.getId())));
     }
 
     public Mono<MinioFile> getFile(Integer imageId) {
