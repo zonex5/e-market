@@ -44,7 +44,7 @@ type AdmOrderItemData {
     productId: Int
     price: Float
     quantity: Int
-    title: String
+    productName: String
     details: String
     thumbnail: Int
 }

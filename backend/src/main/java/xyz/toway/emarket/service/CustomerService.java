@@ -83,6 +83,7 @@ public class CustomerService {
                                             .flatMap(od -> saveOrderItems(customer.getId(), od.getOrderId()))
                                             // empty cart
                                             .then(Mono.defer(() -> cartRepository.deleteAllByCustomerId(customer.getId())))
+                                            //todo implement product balance logic
                                             .thenReturn(OrderResult.ok())
                             );
 

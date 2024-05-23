@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .antMatchers("/security/open").permitAll()
                 .antMatchers("/security/login").permitAll()
                 .antMatchers("/security/register").permitAll()
-                .antMatchers("/image/upload/**").permitAll()  //todo replace with hasRole("ADMIN") or just remove
+                .antMatchers("/image/upload/**").permitAll()  //todo replace with hasRole("ADMIN")
                 .antMatchers("/image/test/**").permitAll()  //todo remove
                 .antMatchers("/admin/*").hasRole("ADMIN")
                 .anyRequest().authenticated().and()

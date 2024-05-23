@@ -12,7 +12,7 @@ public interface CategoryRepository extends ReactiveCrudRepository<CategoryEntit
     @Query("select * from market.category_details where lang = :lang order by title")
     Flux<CategoryModel> getAllByLang(String lang);
 
-    @Query("select * from market.category_details where lang = :lang and active = :active") //todo replace with query methods
+    @Query("select * from market.category_details where lang = :lang and active = :active order by title") //todo replace with query methods
     Flux<CategoryModel> getAllByActive(boolean active, String lang);
 
     @Query("select * from market.category_details where lang = :lang and id = :id") //todo replace with query methods
