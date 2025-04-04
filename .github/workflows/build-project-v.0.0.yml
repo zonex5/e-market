@@ -30,3 +30,42 @@ jobs:
           ignore-unfixed: false
           format: 'table'
           severity: 'CRITICAL,HIGH'
+          exit-code: 0
+          output: trivy-report.json
+
+      # Convert report to HTML
+      - name: Convert Trivy JSON to HTML
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          python3 .github/scripts/trivy_to_html.py    
+
+      # Send report via email
+      - name: Send email via SendGrid
+        if: success() && hashFiles('vulns-found.flag') != ''
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          TO_EMAIL: protari@amsoft-group.com
+          FROM_EMAIL: vpascari@amsoft-group.com
+        run: |
+          echo "Reading HTML email body..."
+          HTML_CONTENT=$(cat email-body.html | sed 's/"/\\"/g' | tr -d '\n')      
+          cat <<EOF > sendgrid_payload.json
+          {
+            "personalizations": [{
+              "to": [{ "email": "${TO_EMAIL}" }]
+            }],
+            "from": { "email": "${FROM_EMAIL}" },
+            "subject": "Trivy Scan Report",
+            "content": [{
+              "type": "text/html",
+              "value": "${HTML_CONTENT}"
+            }]
+          }
+          EOF
+          echo "Sending email..."
+          curl --request POST \
+          --url https://api.sendgrid.com/v3/mail/send \
+          --header "Authorization: Bearer $SENDGRID_API_KEY" \
+          --header 'Content-Type: application/json' \
+          --data @sendgrid_payload.json
